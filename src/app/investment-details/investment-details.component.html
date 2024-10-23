@@ -1,0 +1,99 @@
+<div
+  class="grid pt-3"
+  style="
+    background: linear-gradient(to right, #f8f9fa, #eceef1);
+    min-height: 100vh;
+    padding: 2rem;
+  "
+>
+  <!-- Left Column: Advanced Card -->
+  <div class="col-6">
+    <div
+      class="card flex justify-content-center shadow-3 border-round"
+      style="padding: 2rem; background-color: white"
+    >
+      <p-card
+        header="{{ investment.name }}"
+        subheader="{{ investment.location }}"
+        [style]="{
+          width: '360px',
+          'border-radius': '12px',
+          'box-shadow': '0 4px 12px rgba(0, 0, 0, 0.1)'
+        }"
+      >
+        <!-- Card Header with Image -->
+        <ng-template pTemplate="header">
+          <img
+            alt="Investment Image"
+            src="https://picsum.photos/350/350"
+            style="
+              border-radius: 12px;
+              width: 100%;
+              height: 200px;
+              object-fit: cover;
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            "
+          />
+        </ng-template>
+
+        <!-- Card Content -->
+        <div style="padding: 1rem 0" class="justify-content-center">
+          <h3>{{ investment.date }}</h3>
+          <h3>
+            Status: <span class="text-primary">{{ investment.status }}</span>
+          </h3>
+          <h3>Funding: ${{ investment.funding }}</h3>
+          <h3>Funding Goal: ${{ investment.fundingGoal }}</h3>
+          <p-progressBar [value]="25" />
+        </div>
+
+        <!-- Card Footer with Buttons -->
+        <ng-template pTemplate="footer">
+          <div class="flex gap-3 mt-4">
+            <p-button
+              label="Save"
+              severity="secondary"
+              class="p-button-rounded p-button-secondary p-button-outlined w-full hover-shadow"
+              icon="pi pi-heart"
+            ></p-button>
+            <p-button
+              icon="pi pi-phone"
+              label="Inquire"
+              class="p-button-rounded p-button-primary w-full hover-shadow"
+            ></p-button>
+          </div>
+        </ng-template>
+      </p-card>
+    </div>
+  </div>
+
+  <!-- Right Column: Notes Card -->
+  <div class="col-6">
+    <div
+      class="card flex justify-content-center shadow-3 border-round"
+      style="padding: 2rem; background-color: white"
+    >
+      <p-card
+        header="Updates"
+        [style]="{
+          width: '360px',
+          'border-radius': '12px',
+          'box-shadow': '0 4px 12px rgba(0, 0, 0, 0.1)'
+        }"
+      >
+        <p
+          class="text-secondary"
+          style="
+            font-size: 1.1rem;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            white-space: normal;
+          "
+        >
+          Testing of word-wrap in updates card.. testing.. testing.. testing..
+          testing.. testing.. testing.. testing..
+        </p>
+      </p-card>
+    </div>
+  </div>
+</div>

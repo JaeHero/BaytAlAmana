@@ -1,0 +1,90 @@
+<div class="surface-section px-4 py-8 md:px-6 lg:px-8 text-center">
+  <div class="mb-6 font-bold text-3xl">
+    <span class="text-900">Contact </span>
+    <span class="text-blue-600">Bayt Al-Amana</span>
+  </div>
+  <div class="grid">
+    <div class="col-12 md:col-4 mb-4 px-5">
+      <span
+        class="p-3 shadow-2 mb-3 inline-block surface-card"
+        style="border-radius: 10px"
+      >
+        <i class="pi pi-phone text-4xl text-blue-500"></i>
+      </span>
+      <div class="text-900 text-xl mb-3 font-medium">By Phone</div>
+      <span class="text-700 line-height-3 text-center"
+        ><strong>Monday to Friday, 9am to 4pm EST</strong></span
+      >
+      <br />
+      <span class="text-700 line-height-3 text-center"
+        ><strong>Office:</strong> (765) 431-6341</span
+      >
+      <br />
+      <span class="text-700 line-height-3 text-center"
+        ><strong>Cell:</strong> (765) 453-2000</span
+      >
+    </div>
+    <div class="col-12 md:col-4 mb-4 px-5">
+      <span
+        class="p-3 shadow-2 mb-3 inline-block surface-card"
+        style="border-radius: 10px"
+      >
+        <i class="pi pi-inbox text-4xl text-blue-500"></i>
+      </span>
+      <div class="text-900 text-xl mb-3 font-medium">Send us a message</div>
+      <span class="text-700 line-height-3"
+        ><p-button
+          label="Create Message"
+          icon="pi pi-plus"
+          badgeClass="p-badge-contrast"
+          outlined="true"
+          (click)="onCreateRequest()" /></span
+      ><br />
+      <div
+        *ngIf="showForm"
+        class="mt-4 p-4 surface-card"
+        style="border-radius: 10px"
+      >
+        <div class="flex flex-column gap-2 mt-3">
+          <p-floatLabel>
+            <textarea
+              id="float-input"
+              rows="5"
+              cols="45"
+              pInputTextarea
+              [autoResize]="true"
+            >
+            </textarea>
+            <label for="float-input">Message</label>
+          </p-floatLabel>
+          <small id="username-help">
+            <p-button
+              label="Send Message"
+              icon="pi pi-send"
+              badgeClass="p-badge-contrast"
+              outlined="true"
+              size="small"
+              (click)="onSendMessage()"
+            />
+          </small>
+        </div>
+      </div>
+      <p-toast></p-toast>
+    </div>
+    <div class="col-12 md:col-4 mb-4 px-5">
+      <span
+        class="p-3 shadow-2 mb-3 inline-block surface-card"
+        style="border-radius: 10px"
+      >
+        <i class="pi pi-envelope text-4xl text-blue-500"></i>
+      </span>
+      <div class="text-900 text-xl mb-3 font-medium">Email</div>
+      <span class="text-700 line-height-3"
+        ><strong>Business:</strong> BaytAlAmana&#64;outlook.com</span
+      ><br />
+      <span class="text-700 line-height-3"
+        ><strong>Nour Hossain:</strong> notifications&#64;instructure.com</span
+      >
+    </div>
+  </div>
+</div>

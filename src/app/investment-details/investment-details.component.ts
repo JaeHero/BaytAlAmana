@@ -4,7 +4,7 @@ import { ButtonModule } from 'primeng/button';
 import { ButtonDirective } from 'primeng/button';
 import { SplitterModule } from 'primeng/splitter';
 import { InvestmentService } from '../services/investment.service';
-import { Router, ActivatedRoute } from '@angular/router'; // Import ActivatedRoute to get route params
+import { Router, ActivatedRoute, RouterLink } from '@angular/router'; // Import ActivatedRoute to get route params
 import { Investment } from '../models/investment';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { TagModule } from 'primeng/tag';
@@ -21,6 +21,7 @@ import { NgStyle } from '@angular/common';
     ProgressBarModule,
     TagModule,
     NgStyle,
+    RouterLink,
   ],
   templateUrl: './investment-details.component.html',
   styleUrl: './investment-details.component.css',
@@ -52,5 +53,9 @@ export class InvestmentDetailsComponent implements OnInit {
         console.error('Investment not found');
       }
     }
+  }
+  goToContact() {
+    // Assuming investment.id is the unique identifier for the investment
+    this.router.navigate(['/contact']);
   }
 }

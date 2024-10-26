@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Investment } from '../models/investment'; // Assuming Investment is an interface
+import { Investment } from '../models/investment';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +10,6 @@ export class InvestmentService {
   constructor() {}
 
   getInvestments(): Investment {
-    // REST request to get ALL investments
     this.investment = {
       id: 1,
       name: 'Brad Howell Inc.',
@@ -25,7 +24,6 @@ export class InvestmentService {
   }
 
   getInvestmentById(id: string): Investment {
-    //REST request to get investment by Id
     this.investment = {
       id: 1,
       name: 'Brad Howell Inc.',

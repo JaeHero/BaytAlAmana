@@ -1,0 +1,82 @@
+<!-- Full Page Background -->
+<div
+  class="surface-ground min-h-screen p-4"
+  style="background: linear-gradient(to bottom right, #f2f2f2, #e6e6e6)"
+>
+  <!-- Investors Grid Section -->
+  <div
+    class="card max-w-full p-4"
+    style="
+      background-color: white;
+      border-radius: 16px;
+      box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+    "
+  >
+    <h2 class="text-center text-primary mb-4">Investor List</h2>
+
+    <!-- Responsive Grid -->
+    <div class="grid">
+      <div
+        *ngFor="let investor of investors"
+        class="col-12 md:col-6 lg:col-3 mb-4 px-5"
+        style="padding: 1rem"
+      >
+        <!-- Investor Card -->
+        <div
+          class="border-1 surface-border border-round p-4"
+          style="
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+          "
+        >
+          <!-- Investor Image -->
+          <div
+            class="relative mx-auto"
+            style="width: 100%; height: 150px; margin-bottom: 1rem"
+          >
+            <img
+              src="https://picsum.photos/200/200"
+              [alt]="investor.name"
+              class="w-full h-full border-round"
+              style="
+                object-fit: cover;
+                border-radius: 12px;
+                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+              "
+            />
+            <p-tag
+              [value]="investor.status"
+              class="absolute"
+              [ngStyle]="{
+                'left.px': 5,
+                'top.px': 5,
+                'background-color': '#007bff',
+                color: 'white'
+              }"
+            ></p-tag>
+          </div>
+
+          <!-- Investor Details -->
+          <div
+            class="font-medium font-semibold text-xl text-secondary text-center"
+          >
+            {{ investor.name }}
+          </div>
+          <div class="mt-2 text-secondary text-center">
+            {{ "Since: " + investor.funding }}
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex justify-content-end mt-3">
+            <p-button
+              icon="pi pi-arrow-up-right-and-arrow-down-left-from-center"
+              styleClass="ml-2 p-button-rounded p-button-primary shadow-1"
+              (click)="goToDetails(investor)"
+            ></p-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

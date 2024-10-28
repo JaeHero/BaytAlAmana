@@ -53,4 +53,7 @@ export class PortfolioComponent {
     // Assuming investment.id is the unique identifier for the investment
     this.router.navigate(['/investment-details', investment.id]);
   }
+  goToCurrentDetails(investment: Investment) {
+    this.router.navigate(['/current-details', investment.id]);
+  }
 }

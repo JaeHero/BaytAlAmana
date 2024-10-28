@@ -75,24 +75,22 @@
               {{ investment.name }}
             </div>
 
-            <!-- Investment Funding and Buttons -->
             <div class="flex justify-content-between align-items-center">
-              <div class="mt-0 font-semibold text-xl text-primary">
-                {{ "$" + investment.funding }}
-              </div>
-              <span>
-                <p-button
-                  icon="pi pi-heart"
-                  severity="secondary"
-                  [outlined]="true"
-                  styleClass="p-button-rounded p-button-secondary p-button-outlined shadow-1"
-                ></p-button>
-                <p-button
-                  icon="pi pi-arrow-up-right-and-arrow-down-left-from-center"
-                  styleClass="ml-2 p-button-rounded p-button-primary shadow-1"
-                  (click)="goToDetails(investment)"
-                ></p-button>
-              </span>
+              Funding Goal Reached:
+              <div class="mt-0 font-semibold text-xl text-primary">25%</div>
+            </div>
+            <div class="flex justify-content-between mt-2">
+              <p-button
+                icon="pi pi-heart"
+                severity="secondary"
+                [outlined]="true"
+                styleClass="p-button-rounded p-button-secondary p-button-outlined shadow-1"
+              ></p-button>
+              <p-button
+                icon="pi pi-arrow-up-right-and-arrow-down-left-from-center"
+                styleClass="ml-2 p-button-rounded p-button-primary shadow-1"
+                (click)="goToDetails(investment)"
+              ></p-button>
             </div>
           </div>
         </ng-template>
@@ -100,7 +98,6 @@
     </div>
   </div>
 
-  <!-- Repeated Content Section for In Progress and Finished Projects -->
   <div
     class="flex flex-row flex-wrap mt-6 justify-content-center max-w-full overflow-x-hidden"
   >
@@ -112,7 +109,7 @@
         box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
       "
     >
-      <h2 class="text-center text-primary mb-4">In Progress Investments</h2>
+      <h2 class="text-center text-primary mb-4">In-Progress Investments</h2>
 
       <p-carousel
         [value]="investment"
@@ -159,22 +156,10 @@
               {{ investment.name }}
             </div>
             <div class="flex justify-content-between align-items-center">
+              Expected Close Date:
               <div class="mt-0 font-semibold text-xl text-primary">
-                {{ "$" + investment.funding }}
+                02/15/2025
               </div>
-              <span>
-                <p-button
-                  icon="pi pi-heart"
-                  severity="secondary"
-                  [outlined]="true"
-                  styleClass="p-button-rounded p-button-secondary p-button-outlined shadow-1"
-                ></p-button>
-                <p-button
-                  icon="pi pi-arrow-up-right-and-arrow-down-left-from-center"
-                  styleClass="ml-2 p-button-rounded p-button-primary shadow-1"
-                  (click)="goToDetails(investment)"
-                ></p-button>
-              </span>
             </div>
           </div>
         </ng-template>
@@ -192,7 +177,7 @@
         box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
       "
     >
-      <h2 class="text-center text-primary mb-4">Past Investments</h2>
+      <h2 class="text-center text-primary mb-4">Closed Investments</h2>
 
       <p-carousel
         [value]="investment"
@@ -239,22 +224,14 @@
               {{ investment.name }}
             </div>
             <div class="flex justify-content-between align-items-center">
+              Duration:
               <div class="mt-0 font-semibold text-xl text-primary">
-                {{ "$" + investment.funding }}
+                6 Months
               </div>
-              <span>
-                <p-button
-                  icon="pi pi-heart"
-                  severity="secondary"
-                  [outlined]="true"
-                  styleClass="p-button-rounded p-button-secondary p-button-outlined shadow-1"
-                ></p-button>
-                <p-button
-                  icon="pi pi-arrow-up-right-and-arrow-down-left-from-center"
-                  styleClass="ml-2 p-button-rounded p-button-primary shadow-1"
-                  (click)="goToDetails(investment)"
-                ></p-button>
-              </span>
+            </div>
+            <div class="mt-2 flex justify-content-between align-items-center">
+              ROI:
+              <div class="mt-0 font-semibold text-xl text-green-700">33.3%</div>
             </div>
           </div>
         </ng-template>

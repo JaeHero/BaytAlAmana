@@ -1,5 +1,5 @@
 TODO:
-
+Edit from Blessing
 Profile Page
 Design needed services.
 Consider JWT for auth.

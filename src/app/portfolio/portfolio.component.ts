@@ -6,16 +6,26 @@ import { Investment } from '../models/investment';
 import { Router } from '@angular/router';
 import { InvestmentService } from '../services/investment.service';
 import { ImageModule } from 'primeng/image';
+import { MessagesModule } from 'primeng/messages';
+import { Message } from 'primeng/api';
 
 @Component({
   selector: 'app-portfolio',
   standalone: true,
-  imports: [CarouselModule, TagModule, ButtonModule, ImageModule],
+  imports: [
+    CarouselModule,
+    TagModule,
+    ButtonModule,
+    ImageModule,
+    MessagesModule,
+  ],
   templateUrl: './portfolio.component.html',
   styleUrl: './portfolio.component.css',
 })
 export class PortfolioComponent {
   investment: Investment[] = [];
+  messages: Message[] = [];
+
   responsiveOptions: any[] | undefined;
 
   ngOnInit() {
@@ -41,6 +51,13 @@ export class PortfolioComponent {
         breakpoint: '767px',
         numVisible: 1,
         numScroll: 1,
+      },
+    ];
+    this.messages = [
+      {
+        severity: 'info',
+        detail:
+          'Great news! A new investment opportunity is now available. Check it out and be one of the first to invest!',
       },
     ];
   }

@@ -9,11 +9,13 @@ import { InvestorDetailsComponent } from './investor-details/investor-details.co
 import { LoginComponent } from './login/login.component';
 import { AccountCreationComponent } from './account-creation/account-creation.component';
 import { CurrentDetailsComponent } from './current-details/current-details.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'account-creation', component: AccountCreationComponent },
   { path: 'home', component: HomeComponent },
+  { path: 'admin', component: AdminDashboardComponent },
   { path: 'portfolio', component: PortfolioComponent },
   { path: 'investment-details/:id', component: InvestmentDetailsComponent },
   { path: 'current-details/:id', component: CurrentDetailsComponent },

@@ -1,10 +1,15 @@
 TODO:
 
-Add admin dashboard and investor portfolio
+Profile Page
+Design needed services.
+Consider JWT for auth.
 
 Progress:
 
-UI changes discussed during review (Finished changes with general user UI)
+Add admin dashboard and investor portfolio (Done)
+10/28/24
+
+UI changes discussed during review (Done)
 10/27/24
 
 Implement Investment Details Page (Done)

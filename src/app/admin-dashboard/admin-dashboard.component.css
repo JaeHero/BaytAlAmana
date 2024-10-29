@@ -1,0 +1,4 @@
+th {
+  color: var(--primary-color, #007bff);
+  font-weight: bold;
+}

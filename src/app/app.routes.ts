@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { AccountCreationComponent } from './account-creation/account-creation.component';
 import { CurrentDetailsComponent } from './current-details/current-details.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { ProfileComponent } from './profile/profile.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -21,6 +22,7 @@ export const routes: Routes = [
   { path: 'current-details/:id', component: CurrentDetailsComponent },
   { path: 'info', component: InfoComponent },
   { path: 'contact', component: ContactComponent },
+  { path: 'profile', component: ProfileComponent },
   { path: 'investors', component: InvestorListComponent },
   // { path: 'investor-details/:name', component: InvestorDetailsComponent },
   { path: '', component: HomeComponent },

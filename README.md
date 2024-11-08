@@ -1,10 +1,13 @@
 TODO:
 Edit from Blessing
 Profile Page
+CRUD Investments in Admin Portfolio
 Design needed services.
 Consider JWT for auth.
 
 Progress:
+
+Fixed Card size for Home page and Portfolio Page (Done)
 
 Add admin dashboard and investor portfolio (Done)
 10/28/24

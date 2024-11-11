@@ -24,7 +24,7 @@ export const routes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'investors', component: InvestorListComponent },
-  // { path: 'investor-details/:name', component: InvestorDetailsComponent },
+  { path: 'investor-details/:name', component: InvestorDetailsComponent },
   { path: '', component: HomeComponent },
   { path: '**', component: HomeComponent },
 ];

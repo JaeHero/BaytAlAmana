@@ -1,5 +1,5 @@
 TODO:
-Edit from Blessing
+CRUD operations for investment in admin portfolio
 Profile Page
 CRUD Investments in Admin Portfolio
 Design needed services.
@@ -7,7 +7,13 @@ Consider JWT for auth.
 
 Progress:
 
+Admin CRUD operations (In -progress)
+
+Autoscroll carousel (Done)
+11/11/24
+
 Fixed Card size for Home page and Portfolio Page (Done)
+11/08/24
 
 Add admin dashboard and investor portfolio (Done)
 10/28/24

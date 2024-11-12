@@ -18,6 +18,7 @@ export class InvestmentService {
       funding: '25,000',
       fundingGoal: '100,000',
       date: '10/19/24',
+      expectedCloseDate: '01/15/25',
     };
 
     return this.investment;
@@ -32,6 +33,7 @@ export class InvestmentService {
       funding: '25,000',
       fundingGoal: '100,000',
       date: '10/19/24',
+      expectedCloseDate: '01/15/25',
     };
 
     return this.investment;

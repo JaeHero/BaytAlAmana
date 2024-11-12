@@ -3,6 +3,7 @@ export interface Investment {
   name: string;
   location: string;
   date: string;
+  expectedCloseDate: string;
   fundingGoal: string;
   status: string;
   funding: string;

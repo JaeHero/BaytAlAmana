@@ -24,6 +24,26 @@
         <h2 class="mb-3 text-primary">Create New Investment</h2>
       </div>
 
+      <!-- <label for="email1" class="block text-900 font-medium mb-2"
+        >Upload Photo</label
+      >
+      <p-fileUpload
+        name="demo[]"
+        url="https://www.primefaces.org/cdn/api/upload.php"
+        (onUpload)="onUpload($event)"
+        [multiple]="true"
+        accept="image/*"
+        maxFileSize="1000000"
+      >
+        <ng-template pTemplate="content">
+          <ul *ngIf="uploadedFiles.length">
+            <li *ngFor="let file of uploadedFiles">
+              {{ file.name }} - {{ file.size }} bytes
+            </li>
+          </ul>
+        </ng-template>
+      </p-fileUpload> -->
+
       <div>
         <label for="email1" class="block text-900 font-medium mb-2">Name</label>
         <input

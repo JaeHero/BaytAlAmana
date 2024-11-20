@@ -11,6 +11,7 @@ import { AccountCreationComponent } from './account-creation/account-creation.co
 import { CurrentDetailsComponent } from './current-details/current-details.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
+import { EditInvestmentsComponent } from './admin-dashboard/manage-investments/edit-investments/edit-investments.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -25,6 +26,7 @@ export const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'investors', component: InvestorListComponent },
   { path: 'investor-details/:name', component: InvestorDetailsComponent },
+  { path: 'edit-investment/:id', component: EditInvestmentsComponent },
   { path: '', component: HomeComponent },
   { path: '**', component: HomeComponent },
 ];

@@ -12,9 +12,15 @@ import { CarouselModule } from 'primeng/carousel';
 import { TagModule } from 'primeng/tag';
 import { Investment } from '../../models/investment';
 import { InvestmentService } from '../../services/investment.service';
+import { FileUploadModule } from 'primeng/fileupload';
+import { HttpClient } from '@angular/common/http';
 
 interface Status {
   status: string;
+}
+interface UploadEvent {
+  originalEvent: Event;
+  files: File[];
 }
 
 @Component({
@@ -32,6 +38,7 @@ interface Status {
     DropdownModule,
     CarouselModule,
     TagModule,
+    FileUploadModule,
   ],
   templateUrl: './manage-investments.component.html',
   styleUrl: './manage-investments.component.css',
@@ -41,6 +48,7 @@ export class ManageInvestmentsComponent implements OnInit {
   investment: Investment[] = [];
 
   responsiveOptions: any[] | undefined;
+  uploadedFiles: any[] = [];
 
   selectedStatus: Status | undefined;
   showForm = false;
@@ -86,6 +94,12 @@ export class ManageInvestmentsComponent implements OnInit {
 
   goToDetails(investment: Investment) {
     // Assuming investment.id is the unique identifier for the investment
-    this.router.navigate(['/investment-details', investment.id]);
+    this.router.navigate(['/edit-investment', investment.id]);
+  }
+
+  onUpload(event: UploadEvent | any) {
+    for (let file of event.files) {
+      this.uploadedFiles.push(file);
+    }
   }
 }

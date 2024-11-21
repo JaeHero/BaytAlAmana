@@ -110,4 +110,6 @@ export class EditInvestmentsComponent {
       this.uploadedFiles.push(file);
     }
   }
+
+  selectUpdate() {}
 }

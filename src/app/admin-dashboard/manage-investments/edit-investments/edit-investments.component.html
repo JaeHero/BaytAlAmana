@@ -126,6 +126,7 @@
             selectionMode="single"
             [(selection)]="selectedUpdate"
             dataKey="code"
+            (onRowSelect)="selectUpdate()"
           >
             <ng-template pTemplate="header">
               <tr>
@@ -136,7 +137,7 @@
               </tr>
             </ng-template>
             <ng-template pTemplate="body" let-update>
-              <tr>
+              <tr [pSelectableRow]="update">
                 <td>{{ update.date }}</td>
                 <td>${{ update.cost }}</td>
                 <td class="flex-wrap">{{ update.note }}</td>

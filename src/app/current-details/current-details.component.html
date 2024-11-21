@@ -58,28 +58,38 @@
       class="card flex justify-content-center shadow-3 border-round"
       style="padding: 2rem; background-color: white"
     >
-      <p-card
-        [style]="{
-          width: '360px',
-          'border-radius': '12px',
-          'box-shadow': '0 4px 12px rgba(0, 0, 0, 0.1)'
-        }"
+      <p-table
+        [value]="updates"
+        [scrollable]="true"
+        scrollHeight="400px"
+        selectionMode="single"
+        dataKey="code"
       >
-        <div class="text-center"><h2 class="text-primary">Updates</h2></div>
-        <div
-          class="text-secondary pt-3"
-          style="
-            font-size: 1.1rem;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-            white-space: normal;
-          "
-        >
-          <p><strong>10/27/24:</strong> $12,900 for new roof<br /></p>
-          <p><strong>11/5/24:</strong> $4,500 for landscaping<br /></p>
-          <p><strong>11/11/24:</strong> $2,200 interior paint job<br /></p>
-        </div>
-      </p-card>
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Date</th>
+            <th>Cost</th>
+            <th>Note</th>
+            <!-- <th></th> -->
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-update>
+          <tr>
+            <td>{{ update.date }}</td>
+            <td>${{ update.cost }}</td>
+            <td class="flex-wrap">{{ update.note }}</td>
+            <!-- <td>
+              <p-button
+                icon="pi pi-trash"
+                severity="danger"
+                [outlined]="true"
+                styleClass="p-button-rounded p-button-secondary p-button-outlined shadow-1"
+                size="small"
+              ></p-button>
+            </td> -->
+          </tr>
+        </ng-template>
+      </p-table>
     </div>
   </div>
 </div>

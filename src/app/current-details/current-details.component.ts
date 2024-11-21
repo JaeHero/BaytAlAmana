@@ -9,6 +9,9 @@ import { Investment } from '../models/investment';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { TagModule } from 'primeng/tag';
 import { NgStyle } from '@angular/common';
+import { TableModule } from 'primeng/table';
+import { Update } from '../models/update';
+import { UpdateService } from '../services/update.service';
 
 @Component({
   selector: 'app-current-details',
@@ -22,6 +25,7 @@ import { NgStyle } from '@angular/common';
     TagModule,
     NgStyle,
     RouterLink,
+    TableModule,
   ],
   templateUrl: './current-details.component.html',
   styleUrl: './current-details.component.css',
@@ -30,11 +34,13 @@ export class CurrentDetailsComponent {
   // Initialize with an empty object (use Partial to allow partial initialization if some properties are missing)
   investment: Partial<Investment> = {};
   progressValue = 0;
+  updates: Update[] = [];
 
   constructor(
     private investmentService: InvestmentService,
     private router: Router,
-    private route: ActivatedRoute // Inject ActivatedRoute to get route parameters
+    private route: ActivatedRoute, // Inject ActivatedRoute to get route parameters
+    private updateService: UpdateService
   ) {}
 
   ngOnInit(): void {
@@ -52,6 +58,9 @@ export class CurrentDetailsComponent {
       } else {
         console.error('Investment not found');
       }
+    }
+    for (let index = 0; index < 3; index++) {
+      this.updates.push(this.updateService.getUpdates());
     }
   }
   goToContact() {

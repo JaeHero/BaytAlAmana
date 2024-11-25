@@ -1,13 +1,10 @@
 TODO:
-CRUD operations for investment in admin portfolio
-Profile Page
-CRUD Investments in Admin Portfolio
-Design needed services.
-Consider JWT for auth.
+Admin Messaging Page
+Edit-Investment Responsive
 
 Progress:
 
-Admin CRUD operations (In -progress)
+Admin CRUD operations (Done) 11/18/24
 
 Autoscroll carousel (Done)
 11/11/24

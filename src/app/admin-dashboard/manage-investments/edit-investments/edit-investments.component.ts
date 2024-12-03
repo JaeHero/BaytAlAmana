@@ -49,7 +49,7 @@ interface Status {
 })
 export class EditInvestmentsComponent {
   // Initialize with an empty object (use Partial to allow partial initialization if some properties are missing)
-  investment: Partial<Investment> = {};
+  investment: Investment | null = null;
   progressValue = 0;
   statuses: Status[] | undefined = [];
   uploadedFiles: any[] = [];
@@ -68,17 +68,21 @@ export class EditInvestmentsComponent {
     // Get the 'id' from the route parameter
     const investmentId = this.route.snapshot.paramMap.get('id');
 
-    // Fetch investment details using the ID
     if (investmentId) {
-      const investmentDetails =
-        this.investmentService.getInvestmentById(investmentId);
-      if (investmentDetails) {
-        //const num = parseInt(this.investment.fundingGoal?);
-        this.investment = investmentDetails;
-        // this.progressValue = (this.investment.fundingGoal?/this.investment.funding?)
-      } else {
-        console.error('Investment not found');
-      }
+      this.investmentService.getInvestmentById(investmentId).subscribe({
+        next: (investment: Investment) => {
+          this.investment = investment;
+
+          // Calculate the progress value if funding and fundingGoal are available
+          if (this.investment.funding && this.investment.fundingGoal) {
+            this.progressValue =
+              (this.investment.funding / this.investment.fundingGoal) * 100;
+          }
+        },
+        error: (error) => {
+          console.error('Error fetching investment:', error);
+        },
+      });
     }
     this.statuses = [
       { status: 'Open' },
@@ -89,6 +93,7 @@ export class EditInvestmentsComponent {
     for (let index = 0; index < 8; index++) {
       this.updates.push(this.updateService.getUpdates());
     }
+    this.investmentService.helloWorld();
   }
   goToContact() {
     // Assuming investment.id is the unique identifier for the investment

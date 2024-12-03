@@ -25,13 +25,14 @@ export class HomeComponent {
   ) {}
 
   ngOnInit() {
-    //  this.investmentService.getInvestments().then((products) => {
-    //    this.products = products;
-    //  });
-    for (let index = 0; index < 6; index++) {
-      this.investment.push(this.investmentService.getInvestments());
-    }
+    // this.investmentService.helloWorld();
+    this.investmentService
+      .getInvestments()
+      .subscribe((investments: Investment[]) => {
+        this.investment = investments;
+      });
     console.log(this.investment);
+
     this.responsiveOptions = [
       {
         breakpoint: '1199px',

@@ -1,41 +1,38 @@
 import { Injectable } from '@angular/core';
 import { Investment } from '../models/investment';
+import { HttpClient } from '@angular/common/http';
+import { Observable, tap } from 'rxjs';
+import { enviroment } from '../enviroments/enviroment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class InvestmentService {
   private investment: Investment | undefined;
+  private date: Date = new Date('10/19/24');
+  private expectedCloseDate: Date = new Date('01/15/25');
 
-  constructor() {}
+  constructor(private httpClient: HttpClient) {}
 
-  getInvestments(): Investment {
-    this.investment = {
-      id: 1,
-      name: 'Brad Howell Inc.',
-      status: 'Open',
-      location: '2300 S. Washington St. Kokomo, IN',
-      funding: '25,000',
-      fundingGoal: '100,000',
-      date: '10/19/24',
-      expectedCloseDate: '01/15/25',
-    };
-
-    return this.investment;
+  getInvestments(): Observable<Investment[]> {
+    return this.httpClient.get<Investment[]>(
+      // 'http://localhost:8080/api/v1/investment/investments'
+      enviroment.apiUrl + '/investments'
+    );
   }
 
-  getInvestmentById(id: string): Investment {
-    this.investment = {
-      id: 1,
-      name: 'Brad Howell Inc.',
-      status: 'Open',
-      location: '2300 S. Washington St. Kokomo, IN',
-      funding: '25,000',
-      fundingGoal: '100,000',
-      date: '10/19/24',
-      expectedCloseDate: '01/15/25',
-    };
+  getInvestmentById(id: string): Observable<Investment> {
+    return this.httpClient.get<Investment>(
+      // `http://localhost:8080/api/v1/investment/investments/${id}`
+      enviroment.apiUrl + `/investments/${id}`
+    );
+  }
 
-    return this.investment;
+  helloWorld() {
+    this.httpClient
+      .get('http://localhost:8080/api/v1/investment/investments/2')
+      .subscribe((data) => {
+        console.log(JSON.stringify(data));
+      });
   }
 }

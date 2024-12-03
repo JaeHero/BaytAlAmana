@@ -13,8 +13,8 @@
       style="padding: 2rem; background-color: white"
     >
       <p-card
-        header="{{ investment.name }}"
-        subheader="{{ investment.location }}"
+        header="{{ investment?.name }}"
+        subheader="{{ investment?.location }}"
         [style]="{
           width: '360px',
           'border-radius': '12px',
@@ -38,12 +38,12 @@
 
         <!-- Card Content -->
         <div style="padding: 1rem 0" class="justify-content-center">
-          <h3>{{ investment.date }}</h3>
+          <h3>{{ investment?.date }}</h3>
           <h3>
-            Status: <span class="text-primary">{{ investment.status }}</span>
+            Status: <span class="text-primary">{{ investment?.status }}</span>
           </h3>
-          <h3>Funding: ${{ investment.funding }}</h3>
-          <h3>Funding Goal: ${{ investment.fundingGoal }}</h3>
+          <h3>Funding: ${{ investment?.funding }}</h3>
+          <h3>Funding Goal: ${{ investment?.fundingGoal }}</h3>
           <p-progressBar [value]="25" />
         </div>
 

@@ -30,9 +30,11 @@ export class InvestorDetailsComponent {
     this.investor = this.route.snapshot.paramMap.get('name');
     console.log(this.investor);
 
-    for (let index = 0; index < 6; index++) {
-      this.investment.push(this.investmentService.getInvestments());
-    }
+    this.investmentService
+      .getInvestments()
+      .subscribe((investments: Investment[]) => {
+        this.investment = investments;
+      });
     console.log(this.investment);
     this.responsiveOptions = [
       {

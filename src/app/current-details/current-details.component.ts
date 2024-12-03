@@ -32,7 +32,7 @@ import { UpdateService } from '../services/update.service';
 })
 export class CurrentDetailsComponent {
   // Initialize with an empty object (use Partial to allow partial initialization if some properties are missing)
-  investment: Partial<Investment> = {};
+  investment: Investment | null = null;
   progressValue = 0;
   updates: Update[] = [];
 
@@ -49,15 +49,20 @@ export class CurrentDetailsComponent {
 
     // Fetch investment details using the ID
     if (investmentId) {
-      const investmentDetails =
-        this.investmentService.getInvestmentById(investmentId);
-      if (investmentDetails) {
-        //const num = parseInt(this.investment.fundingGoal?);
-        this.investment = investmentDetails;
-        // this.progressValue = (this.investment.fundingGoal?/this.investment.funding?)
-      } else {
-        console.error('Investment not found');
-      }
+      this.investmentService.getInvestmentById(investmentId).subscribe({
+        next: (investment: Investment) => {
+          this.investment = investment;
+
+          // Calculate the progress value if funding and fundingGoal are available
+          if (this.investment.funding && this.investment.fundingGoal) {
+            this.progressValue =
+              (this.investment.funding / this.investment.fundingGoal) * 100;
+          }
+        },
+        error: (error) => {
+          console.error('Error fetching investment:', error);
+        },
+      });
     }
     for (let index = 0; index < 3; index++) {
       this.updates.push(this.updateService.getUpdates());

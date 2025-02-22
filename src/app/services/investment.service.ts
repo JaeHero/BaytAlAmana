@@ -16,15 +16,13 @@ export class InvestmentService {
 
   getInvestments(): Observable<Investment[]> {
     return this.httpClient.get<Investment[]>(
-      // 'http://localhost:8080/api/v1/investment/investments'
       enviroment.apiUrl + '/investments'
     );
   }
 
   getInvestmentById(id: string): Observable<Investment> {
     return this.httpClient.get<Investment>(
-      // `http://localhost:8080/api/v1/investment/investments/${id}`
-      enviroment.apiUrl + `/investments/${id}`
+      enviroment.apiUrl + `/investment/${id}`
     );
   }
 

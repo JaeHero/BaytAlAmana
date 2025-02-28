@@ -5,6 +5,8 @@ import { Investment } from '../models/investment';
 import { InvestmentService } from '../services/investment.service';
 import { Router, Route, ActivatedRoute } from '@angular/router';
 import { TagModule } from 'primeng/tag';
+import { InvestorService } from '../services/investor.service';
+import { Investor } from '../models/investor';
 
 @Component({
   selector: 'app-investor-details',
@@ -17,9 +19,11 @@ export class InvestorDetailsComponent {
   investment: Investment[] = [];
   responsiveOptions: any[] | undefined;
   investor: any;
+  selectedInvestor: Investor | undefined;
 
   constructor(
     private investmentService: InvestmentService,
+    private investorService: InvestorService,
     private router: Router,
     private route: ActivatedRoute // Inject ActivatedRoute to get route parameters
   ) {}
@@ -27,13 +31,19 @@ export class InvestorDetailsComponent {
     //  this.investmentService.getInvestments().then((products) => {
     //    this.products = products;
     //  });
-    this.investor = this.route.snapshot.paramMap.get('name');
+    this.investor = this.route.snapshot.paramMap.get('id');
     console.log(this.investor);
 
     this.investmentService
       .getInvestments()
       .subscribe((investments: Investment[]) => {
         this.investment = investments;
+      });
+
+    this.investorService
+      .getInvestorById(this.investor)
+      .subscribe((investor: Investor) => {
+        this.selectedInvestor = investor;
       });
     console.log(this.investment);
     this.responsiveOptions = [

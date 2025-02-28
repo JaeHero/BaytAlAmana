@@ -37,7 +37,7 @@
           >
             <img
               src="https://picsum.photos/200/200"
-              [alt]="investor.name"
+              [alt]="investor.username"
               class="w-full h-full border-round"
               style="
                 object-fit: cover;
@@ -46,7 +46,7 @@
               "
             />
             <p-tag
-              [value]="investor.status"
+              [value]="investor.isPublic ? 'Public' : 'Private'"
               class="absolute"
               [ngStyle]="{
                 'left.px': 5,
@@ -57,14 +57,13 @@
             ></p-tag>
           </div>
 
-          <!-- Investor Details -->
           <div
             class="font-medium font-semibold text-xl text-secondary text-center"
           >
-            {{ investor.name }}
+            {{ investor.username }}
           </div>
           <div class="mt-2 text-secondary text-center">
-            {{ "Since: " + investor.funding }}
+            {{ "Since: " + investor.createdAt }}
           </div>
 
           <!-- Action Buttons -->

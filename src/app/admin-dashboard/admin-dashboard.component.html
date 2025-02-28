@@ -13,20 +13,28 @@
         >
           <ng-template pTemplate="header">
             <tr>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Investment Interest</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Investment Count</th>
+              <th>Profit</th>
+              <th>Intended Investment</th>
               <th>Total Investment</th>
-              <th>Total Profit</th>
+              <th>Is Approved</th>
+              <th>Is Public</th>
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-investor>
             <tr [pSelectableRow]="investor">
-              <td>{{ investor.firstName }}</td>
-              <td>{{ investor.lastName }}</td>
+              <td>{{ investor.username }}</td>
+              <td>{{ investor.email }}</td>
+              <td>{{ investor.phone }}</td>
+              <td>{{ investor.investmentCount }}</td>
+              <td>{{ investor.profit }}</td>
+              <td>{{ investor.intendedInvestment }}</td>
               <td>{{ investor.investmentAmount }}</td>
-              <td>{{ investor.funding }}</td>
-              <td>{{ investor.investorProfit }}</td>
+              <td>{{ investor.isApproved ? "Approved" : "Not Approved" }}</td>
+              <td>{{ investor.isPublic ? "Public" : "Private" }}</td>
             </tr>
           </ng-template>
         </p-table>

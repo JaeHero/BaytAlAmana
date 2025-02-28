@@ -65,7 +65,13 @@ export class CurrentDetailsComponent {
       });
     }
     for (let index = 0; index < 3; index++) {
-      this.updates.push(this.updateService.getUpdates());
+      this.updates.push({
+        id: index,
+        date: new Date(),
+        cost: 24500,
+        description: 'New Roof',
+        investmentId: 1,
+      });
     }
   }
   goToContact() {

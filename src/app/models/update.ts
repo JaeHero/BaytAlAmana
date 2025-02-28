@@ -1,5 +1,7 @@
 export interface Update {
-  date: string;
-  cost: string;
-  note: string;
+  id: number;
+  date: Date;
+  cost: number;
+  description: string;
+  investmentId: number;
 }

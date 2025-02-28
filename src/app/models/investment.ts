@@ -1,3 +1,5 @@
+import { Update } from './update';
+
 export interface Investment {
   id: number;
   name: string;
@@ -8,4 +10,5 @@ export interface Investment {
   date: Date;
   expectedCloseDate: Date;
   investorCount: number;
+  updates: Update[];
 }

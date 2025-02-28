@@ -5,7 +5,15 @@ import { CardModule } from 'primeng/card';
 import { CalendarModule } from 'primeng/calendar';
 import { InputTextModule } from 'primeng/inputtext';
 import { Router, RouterLink } from '@angular/router';
-import { FormsModule, FormGroup } from '@angular/forms';
+import { ToastModule } from 'primeng/toast';
+
+import {
+  FormsModule,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+  FormBuilder,
+} from '@angular/forms';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DropdownModule } from 'primeng/dropdown';
 import { CarouselModule } from 'primeng/carousel';
@@ -14,9 +22,11 @@ import { Investment } from '../../models/investment';
 import { InvestmentService } from '../../services/investment.service';
 import { FileUploadModule } from 'primeng/fileupload';
 import { HttpClient } from '@angular/common/http';
+import { MessageService } from 'primeng/api';
 
 interface Status {
-  status: string;
+  label: string;
+  value: number;
 }
 interface UploadEvent {
   originalEvent: Event;
@@ -39,36 +49,44 @@ interface UploadEvent {
     CarouselModule,
     TagModule,
     FileUploadModule,
+    ReactiveFormsModule,
+    ToastModule,
   ],
+  providers: [MessageService],
   templateUrl: './manage-investments.component.html',
   styleUrl: './manage-investments.component.css',
 })
 export class ManageInvestmentsComponent implements OnInit {
-  statuses: Status[] | undefined = [];
+  statuses: Status[] = [
+    { label: 'New', value: 1 },
+    { label: 'In-Progress', value: 2 },
+    { label: 'Closed', value: 3 },
+  ];
   investment: Investment[] = [];
-
+  newInvestment: Investment = {} as Investment;
   responsiveOptions: any[] | undefined;
   uploadedFiles: any[] = [];
 
-  selectedStatus: Status | undefined;
   showForm = false;
-
+  investmentForm!: FormGroup;
   constructor(
+    private formBuilder: FormBuilder,
     private investmentService: InvestmentService,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService
   ) {}
 
   ngOnInit() {
-    this.statuses = [
-      { status: 'New' },
-      { status: 'In Progress' },
-      { status: 'Closed' },
-    ];
-    this.investmentService
-      .getInvestments()
-      .subscribe((investments: Investment[]) => {
-        this.investment = investments;
-      });
+    this.investmentForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      location: ['', Validators.required],
+      date: ['', Validators.required],
+      expectedCloseDate: ['', Validators.required],
+      fundingGoal: ['', Validators.required],
+      funding: ['', Validators.required],
+      status: [null, Validators.required],
+    });
+    this.getInvestments();
     console.log(this.investment);
     this.responsiveOptions = [
       {
@@ -89,13 +107,37 @@ export class ManageInvestmentsComponent implements OnInit {
     ];
   }
 
-  createAccount() {}
+  createInvestment() {
+    console.log(this.investmentForm.value);
+    if (this.investmentForm.valid) {
+      this.newInvestment = this.investmentForm.value;
+      this.investmentService.createInvestment(this.newInvestment).subscribe(
+        (response: Investment) => {
+          console.log(response);
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Investment created successfully',
+          });
+          this.getInvestments();
+        },
+        (error) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Investment creation failed',
+          });
+        }
+      );
+      this.investmentForm.reset();
+    }
+  }
   date: Date | undefined;
+  expectedCloseDate: Date | undefined;
   value1: number = 0;
   value2: number = 0;
 
   goToDetails(investment: Investment) {
-    // Assuming investment.id is the unique identifier for the investment
     this.router.navigate(['/edit-investment', investment.id]);
   }
 
@@ -103,5 +145,37 @@ export class ManageInvestmentsComponent implements OnInit {
     for (let file of event.files) {
       this.uploadedFiles.push(file);
     }
+  }
+  onSelect(event: Date) {
+    console.log(event);
+  }
+
+  getInvestments() {
+    this.investmentService
+      .getInvestments()
+      .subscribe((investments: Investment[]) => {
+        this.investment = investments;
+      });
+  }
+
+  deleteInvestment(id: string) {
+    this.investmentService.deleteInvestment(id).subscribe(
+      (response: Investment) => {
+        console.log(response);
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Investment deleted successfully',
+        });
+        this.getInvestments();
+      },
+      (error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Investment deletion failed',
+        });
+      }
+    );
   }
 }

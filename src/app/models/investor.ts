@@ -1,12 +1,16 @@
+import { Investment } from './investment';
+
 export interface Investor {
   id: number;
-  firstName: string;
-  lastName: string;
+  username: string;
   email: string;
-  password: string;
   phone: string;
-  investmentAmount: string;
+  investmentCount: number;
+  profit: number;
+  intendedInvestment: number;
+  isApproved: boolean;
   isPublic: boolean;
-  funding: string;
-  investorProfit: string;
+  createdAt: Date;
+  isAdmin: boolean;
+  investments: Investment[];
 }

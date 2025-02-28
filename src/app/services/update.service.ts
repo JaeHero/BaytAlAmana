@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Update } from '../models/update';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { enviroment } from '../enviroments/enviroment';
 
 @Injectable({
   providedIn: 'root',
@@ -7,14 +10,25 @@ import { Update } from '../models/update';
 export class UpdateService {
   private update: Update | undefined;
 
-  constructor() {}
+  constructor(private httpClient: HttpClient) {}
 
-  getUpdates(): Update {
-    this.update = {
-      date: '12/3/24',
-      cost: '24,500',
-      note: 'New Roof',
-    };
-    return this.update;
+  addUpdate(update: Update): Observable<Update> {
+    return this.httpClient.post<Update>(
+      enviroment.apiUrl + '/investment-update',
+      update
+    );
+  }
+
+  deleteUpdate(id: string): Observable<Update> {
+    return this.httpClient.delete<Update>(
+      enviroment.apiUrl + `/investment-update/${id}`
+    );
+  }
+
+  updateUpdate(id: string, update: Update): Observable<Update> {
+    return this.httpClient.put<Update>(
+      enviroment.apiUrl + `/investment-update/${id}`,
+      update
+    );
   }
 }

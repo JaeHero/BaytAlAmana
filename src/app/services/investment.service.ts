@@ -26,6 +26,26 @@ export class InvestmentService {
     );
   }
 
+  createInvestment(investment: Investment): Observable<Investment> {
+    return this.httpClient.post<Investment>(
+      enviroment.apiUrl + '/investment',
+      investment
+    );
+  }
+
+  deleteInvestment(id: string): Observable<Investment> {
+    return this.httpClient.delete<Investment>(
+      enviroment.apiUrl + `/investment/${id}`
+    );
+  }
+
+  updateInvestment(id: string, investment: Investment): Observable<Investment> {
+    return this.httpClient.put<Investment>(
+      enviroment.apiUrl + `/investment/${id}`,
+      investment
+    );
+  }
+
   helloWorld() {
     this.httpClient
       .get('http://localhost:8080/api/v1/investment/investments/2')

@@ -28,11 +28,12 @@ export class AdminDashboardComponent implements OnInit {
   investors: Investor[] = [];
   selectedInvestor!: Investor;
   ngOnInit(): void {
-    for (let index = 0; index < 6; index++) {
-      this.investors.push(this.investorService.getInvestors());
-    }
+    this.investorService.getInvestors().subscribe((investors: Investor[]) => {
+      this.investors = investors;
+      console.log(this.investors);
+    });
   }
   onRowSelect(event: any) {
-    this.router.navigate(['/investor-details', 'John']);
+    this.router.navigate(['/investor-details', this.selectedInvestor.id]);
   }
 }

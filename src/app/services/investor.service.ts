@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Investor } from '../models/investor';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { enviroment } from '../enviroments/enviroment';
 
 @Injectable({
   providedIn: 'root',
@@ -7,39 +10,13 @@ import { Investor } from '../models/investor';
 export class InvestorService {
   private investor: Investor | undefined;
 
-  constructor() {}
+  constructor(private httpClient: HttpClient) {}
 
-  getInvestors(): Investor {
-    this.investor = {
-      id: 1,
-      firstName: 'John',
-      lastName: 'Doe',
-      email: 'JohnDoe@gmail.com',
-      password: '@&$%*(#($*',
-      phone: '7654316341',
-      investmentAmount: '$50000',
-      isPublic: true,
-      funding: '$42000',
-      investorProfit: '$6220',
-    };
-
-    return this.investor;
+  getInvestors(): Observable<Investor[]> {
+    return this.httpClient.get<Investor[]>(enviroment.apiUrl + '/users');
   }
 
-  getInvestorById(id: string): Investor {
-    this.investor = {
-      id: 1,
-      firstName: 'John',
-      lastName: 'Doe',
-      email: 'JohnDoe@gmail.com',
-      password: '@&$%*(#($*',
-      phone: '7654316341',
-      investmentAmount: '$50000',
-      isPublic: true,
-      funding: '$42000',
-      investorProfit: '$6220',
-    };
-
-    return this.investor;
+  getInvestorById(id: number): Observable<Investor> {
+    return this.httpClient.get<Investor>(enviroment.apiUrl + '/user/' + id);
   }
 }

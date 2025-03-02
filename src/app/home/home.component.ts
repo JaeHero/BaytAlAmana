@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ImageModule } from 'primeng/image';
 import { CarouselModule } from 'primeng/carousel';
 import { TagModule } from 'primeng/tag';
@@ -14,8 +14,11 @@ import { Router } from '@angular/router';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   investment: Investment[] = [];
+  openInvestments: Investment[] = [];
+  inProgressInvestment: Investment[] = [];
+  closedInvestment: Investment[] = [];
 
   responsiveOptions: any[] | undefined;
 
@@ -30,6 +33,15 @@ export class HomeComponent {
       .getInvestments()
       .subscribe((investments: Investment[]) => {
         this.investment = investments;
+        this.openInvestments = this.investment.filter(
+          (investment) => investment.status === 1
+        );
+        this.inProgressInvestment = this.investment.filter(
+          (investment) => investment.status === 2
+        );
+        this.closedInvestment = this.investment.filter(
+          (investment) => investment.status === 3
+        );
       });
     console.log(this.investment);
 
@@ -54,5 +66,18 @@ export class HomeComponent {
   goToDetails(investment: Investment) {
     // Assuming investment.id is the unique identifier for the investment
     this.router.navigate(['/investment-details', investment.id]);
+  }
+
+  getStatusLabel(status: number): string {
+    switch (status) {
+      case 1:
+        return 'Open';
+      case 2:
+        return 'In-Progress';
+      case 3:
+        return 'Closed';
+      default:
+        return 'Pending';
+    }
   }
 }

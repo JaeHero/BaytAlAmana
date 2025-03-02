@@ -61,7 +61,7 @@ interface Status {
 })
 export class EditInvestmentsComponent implements OnInit {
   statuses: Status[] = [
-    { label: 'New', value: 1 },
+    { label: 'Open', value: 1 },
     { label: 'In-Progress', value: 2 },
     { label: 'Closed', value: 3 },
   ];
@@ -142,6 +142,7 @@ export class EditInvestmentsComponent implements OnInit {
               detail: 'Investment updated successfully',
             });
             this.getInvestment(this.investmentId);
+            console.log(this.investment);
           },
           error: (error: any) => {
             this.messageService.add({

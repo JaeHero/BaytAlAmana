@@ -58,7 +58,7 @@ interface UploadEvent {
 })
 export class ManageInvestmentsComponent implements OnInit {
   statuses: Status[] = [
-    { label: 'New', value: 1 },
+    { label: 'Open', value: 1 },
     { label: 'In-Progress', value: 2 },
     { label: 'Closed', value: 3 },
   ];

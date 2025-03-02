@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TableModule } from 'primeng/table';
-import { CommonModule } from '@angular/common';
+import { CommonModule, JsonPipe } from '@angular/common';
 import { Investor } from '../models/investor';
 import { InvestorService } from '../services/investor.service';
 import { Router } from '@angular/router';

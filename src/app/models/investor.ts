@@ -8,9 +8,9 @@ export interface Investor {
   investmentCount: number;
   profit: number;
   intendedInvestment: number;
-  isApproved: boolean;
-  isPublic: boolean;
+  approved: boolean;
+  public: boolean;
   createdAt: Date;
-  isAdmin: boolean;
+  admin: boolean;
   investments: Investment[];
 }

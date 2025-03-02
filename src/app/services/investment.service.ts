@@ -53,4 +53,16 @@ export class InvestmentService {
         console.log(JSON.stringify(data));
       });
   }
+
+  getInvestmentsByInvestorId(investorId: string): Observable<Investment[]> {
+    return this.httpClient.get<Investment[]>(
+      enviroment.apiUrl + `/user/${investorId}/investments`
+    );
+  }
+
+  getAvailableInvestments(investorId: string): Observable<Investment[]> {
+    return this.httpClient.get<Investment[]>(
+      enviroment.apiUrl + `/user/${investorId}/available-investments`
+    );
+  }
 }

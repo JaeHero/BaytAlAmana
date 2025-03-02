@@ -3,7 +3,7 @@ import { Update } from './update';
 export interface Investment {
   id: number;
   name: string;
-  status: string;
+  status: number;
   location: string;
   funding: number;
   fundingGoal: number;

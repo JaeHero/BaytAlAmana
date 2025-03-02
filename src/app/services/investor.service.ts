@@ -19,4 +19,34 @@ export class InvestorService {
   getInvestorById(id: number): Observable<Investor> {
     return this.httpClient.get<Investor>(enviroment.apiUrl + '/user/' + id);
   }
+
+  addUsertoInvestment(
+    investorId: number,
+    investmentId: number
+  ): Observable<boolean> {
+    return this.httpClient.post<boolean>(
+      enviroment.apiUrl + '/user/' + investorId + '/investment/' + investmentId,
+      {}
+    );
+  }
+
+  removeUserFromInvestment(
+    investorId: number,
+    investmentId: number
+  ): Observable<boolean> {
+    return this.httpClient.delete<boolean>(
+      enviroment.apiUrl + '/user/' + investorId + '/investment/' + investmentId
+    );
+  }
+
+  updateInvestor(investor: Investor): Observable<boolean> {
+    return this.httpClient.put<boolean>(
+      enviroment.apiUrl + '/user/' + investor.id,
+      investor
+    );
+  }
+
+  deleteInvestor(id: number): Observable<boolean> {
+    return this.httpClient.delete<boolean>(enviroment.apiUrl + '/user/' + id);
+  }
 }

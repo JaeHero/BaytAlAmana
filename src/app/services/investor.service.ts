@@ -49,4 +49,11 @@ export class InvestorService {
   deleteInvestor(id: number): Observable<boolean> {
     return this.httpClient.delete<boolean>(enviroment.apiUrl + '/user/' + id);
   }
+
+  createUser(investor: Investor) {
+    return this.httpClient.post<Investor>(
+      enviroment.apiUrl + '/user',
+      investor
+    );
+  }
 }

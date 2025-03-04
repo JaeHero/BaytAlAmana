@@ -1,4 +1,5 @@
 <h1>Bayt Al Amana</h1>
+<p>Blessing Text one</p>
 <h2>Team Members</h2>
 <ul>
 <li>Austin Butcher</li>

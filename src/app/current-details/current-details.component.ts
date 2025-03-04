@@ -8,10 +8,15 @@ import { Router, ActivatedRoute, RouterLink } from '@angular/router'; // Import 
 import { Investment } from '../models/investment';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { TagModule } from 'primeng/tag';
-import { NgStyle } from '@angular/common';
+import { NgStyle, CurrencyPipe } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { Update } from '../models/update';
 import { UpdateService } from '../services/update.service';
+
+interface Status {
+  label: string;
+  value: number;
+}
 
 @Component({
   selector: 'app-current-details',
@@ -26,15 +31,21 @@ import { UpdateService } from '../services/update.service';
     NgStyle,
     RouterLink,
     TableModule,
+    CurrencyPipe,
   ],
   templateUrl: './current-details.component.html',
   styleUrl: './current-details.component.css',
 })
 export class CurrentDetailsComponent {
   // Initialize with an empty object (use Partial to allow partial initialization if some properties are missing)
-  investment: Investment | null = null;
+  investment: Investment = {} as Investment;
   progressValue = 0;
   updates: Update[] = [];
+  statuses: Status[] = [
+    { label: 'Open', value: 1 },
+    { label: 'In-Progress', value: 2 },
+    { label: 'Closed', value: 3 },
+  ];
 
   constructor(
     private investmentService: InvestmentService,
@@ -58,19 +69,11 @@ export class CurrentDetailsComponent {
             this.progressValue =
               (this.investment.funding / this.investment.fundingGoal) * 100;
           }
+          this.updates = investment.updates;
         },
         error: (error) => {
           console.error('Error fetching investment:', error);
         },
-      });
-    }
-    for (let index = 0; index < 3; index++) {
-      this.updates.push({
-        id: index,
-        date: new Date(),
-        cost: 24500,
-        description: 'New Roof',
-        investmentId: 1,
       });
     }
   }

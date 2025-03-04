@@ -1,3 +1,4 @@
+import { Message } from './message';
 import { Update } from './update';
 
 export interface Investment {

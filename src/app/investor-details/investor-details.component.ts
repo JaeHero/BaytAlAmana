@@ -13,12 +13,20 @@ import { CommonModule } from '@angular/common';
 import { FieldsetModule } from 'primeng/fieldset';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { CalendarModule } from 'primeng/calendar';
+import { CardModule } from 'primeng/card';
+import { TableModule } from 'primeng/table';
+import { Message } from '../models/message';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
+  Validators,
 } from '@angular/forms';
+import { MessageService } from '../services/message.service';
 
 @Component({
   selector: 'app-investor-details',
@@ -34,6 +42,11 @@ import {
     InputTextModule,
     InputSwitchModule,
     ReactiveFormsModule,
+    InputGroupModule,
+    InputGroupAddonModule,
+    CalendarModule,
+    CardModule,
+    TableModule,
   ],
   templateUrl: './investor-details.component.html',
   styleUrl: './investor-details.component.css',
@@ -45,20 +58,32 @@ export class InvestorDetailsComponent {
   investor: any;
   selectedInvestor: Investor = {} as Investor;
   investmentForm!: FormGroup;
+  messageForm!: FormGroup;
+  date: Date | undefined;
+  messages: Message[] = [];
+  message: Message = {} as Message;
+  selectedMessage!: Message;
+  editMode: boolean = false;
+
   constructor(
     private investmentService: InvestmentService,
     private investorService: InvestorService,
     private router: Router,
     private route: ActivatedRoute,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private messageService: MessageService
   ) {}
   ngOnInit() {
     this.investor = this.route.snapshot.paramMap.get('id');
     console.log(this.investor);
+    this.editMode = false;
     this.getInvestor();
     this.getInvestorInvestments();
     this.getAvailableInvestments();
-
+    this.messageForm = this.formBuilder.group({
+      date: ['', Validators.required],
+      message: ['', Validators.required],
+    });
     console.log(this.investment);
     this.responsiveOptions = [
       {
@@ -97,6 +122,7 @@ export class InvestorDetailsComponent {
       .getInvestorById(this.investor)
       .subscribe((investor: Investor) => {
         this.selectedInvestor = investor;
+        this.messages = this.selectedInvestor.messages;
         // Initialize form after we have the investor data
         this.investmentForm = this.formBuilder.group({
           approved: [this.selectedInvestor.approved],
@@ -175,5 +201,68 @@ export class InvestorDetailsComponent {
         console.log(response);
         this.router.navigate(['/admin']);
       });
+  }
+
+  selectMessage() {
+    this.editMode = true;
+    this.message = this.selectedMessage;
+    this.messageForm.patchValue(this.selectedMessage);
+    let newDate = new Date(this.selectedMessage.date);
+    newDate.setDate(newDate.getDate() + 1);
+    this.date = newDate;
+  }
+
+  saveMessage() {
+    if (this.messageForm.valid && !this.editMode) {
+      this.message = this.messageForm.value;
+      this.message.userId = Number(this.investor);
+      this.messageService.createMessage(this.message).subscribe({
+        next: (message: Message) => {
+          this.messages.push(message);
+          console.log(message);
+        },
+        error: (error: any) => {
+          console.log(error);
+        },
+      });
+    } else if (this.messageForm.valid && this.editMode) {
+      this.updateMessage();
+    }
+  }
+
+  deleteMessage(id: string) {
+    this.messageService.deleteMessage(id).subscribe({
+      next: () => {
+        this.getInvestor();
+      },
+      error: (error: any) => {
+        console.log(error);
+      },
+    });
+  }
+
+  updateMessage() {
+    this.message = this.messageForm.value;
+    this.message.id = this.selectedMessage.id;
+    this.message.userId = Number(this.investor);
+    console.log(this.message);
+    this.messageService
+      .updateMessage(this.message.id.toString(), this.message)
+      .subscribe({
+        next: (message: Message) => {
+          this.messages.push(message);
+          this.getInvestor();
+          this.resetMessage();
+        },
+        error: (err: any) => {
+          console.log(err);
+          this.resetMessage();
+        },
+      });
+  }
+
+  resetMessage() {
+    this.messageForm.reset();
+    this.editMode = false;
   }
 }

@@ -15,4 +15,5 @@
 <li>Figure out how to store duration (which datatype)?</li>
 <li>Add profit to investment table and allow admin management. ROI as a percentage (profit/funding) will be shown for 'closed' investments.</li>
 <li>Add investedAmount to User table and allow admin management. User Portfolio will display the amount remaining (intended investment - investedAmount).</li>
+<li>Add expenditure to investment table</li>
 </ul>

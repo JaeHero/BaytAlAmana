@@ -1,4 +1,5 @@
 import { Investment } from './investment';
+import { Message } from './message';
 
 export interface Investor {
   id: number;
@@ -13,4 +14,5 @@ export interface Investor {
   createdAt: Date;
   admin: boolean;
   investments: Investment[];
+  messages: Message[];
 }

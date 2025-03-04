@@ -63,6 +63,9 @@ export class ManageInvestmentsComponent implements OnInit {
     { label: 'Closed', value: 3 },
   ];
   investment: Investment[] = [];
+  openInvestments: Investment[] = [];
+  inProgressInvestments: Investment[] = [];
+  closedInvestments: Investment[] = [];
   newInvestment: Investment = {} as Investment;
   responsiveOptions: any[] | undefined;
   uploadedFiles: any[] = [];
@@ -155,6 +158,15 @@ export class ManageInvestmentsComponent implements OnInit {
       .getInvestments()
       .subscribe((investments: Investment[]) => {
         this.investment = investments;
+        this.openInvestments = this.investment.filter(
+          (investment) => investment.status === 1
+        );
+        this.inProgressInvestments = this.investment.filter(
+          (investment) => investment.status === 2
+        );
+        this.closedInvestments = this.investment.filter(
+          (investment) => investment.status === 3
+        );
       });
   }
 
@@ -177,5 +189,18 @@ export class ManageInvestmentsComponent implements OnInit {
         });
       }
     );
+  }
+
+  getStatusLabel(status: number): string {
+    switch (status) {
+      case 1:
+        return 'Open';
+      case 2:
+        return 'In-Progress';
+      case 3:
+        return 'Closed';
+      default:
+        return 'Pending';
+    }
   }
 }

@@ -75,4 +75,17 @@ export class PortfolioComponent {
   goToCurrentDetails(investment: Investment) {
     this.router.navigate(['/current-details', investment.id]);
   }
+
+  getStatusLabel(status: number): string {
+    switch (status) {
+      case 1:
+        return 'Open';
+      case 2:
+        return 'In-Progress';
+      case 3:
+        return 'Closed';
+      default:
+        return 'Pending';
+    }
+  }
 }

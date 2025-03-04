@@ -1,52 +1,53 @@
 <!-- Full Page Background -->
-<div class="col-12">
-  <div class="flex justify-content-center align-content-center flex-wrap mt-6">
-    <div class="surface-card p-4 shadow-2 border-round w-full lg:w-6">
+<div
+  class="flex flex-wrap justify-content-center align-items-center gap-4 mt-6"
+>
+  <!-- Manage Profile Card -->
+  <div class="col-4">
+    <div class="surface-card p-4 shadow-2 border-round">
       <div class="text-center justify-content-center mb-5">
-        <div class="text-900 text-3xl font-medium mb-3">
-          {{ selectedInvestor.username }}
-        </div>
-        <span class="text-600 font-medium line-height-3">Manage Profile</span>
+        <div class="text-900 text-3xl font-medium mb-3">Manage Profile</div>
+        <span class="text-600 font-medium line-height-3">{{
+          selectedInvestor.username
+        }}</span>
       </div>
       <div class="justify-content-center mb-5">
         <p-avatar
           image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png"
           shape="circle"
           size="xlarge"
-        />
+        ></p-avatar>
       </div>
-
       <div>
         <form [formGroup]="investmentForm">
           <div>
             <div class="flex align-items-center justify-content-between mb-6">
               <div class="flex align-items-center">
-                <!-- <p-checkbox
-                id="rememberme1"
-                [binary]="true"
-                styleClass="mr-2"
-              ></p-checkbox> -->
-                <p-inputSwitch formControlName="approved" styleClass="mr-2" />
-
-                <label for="rememberme1" class="text-900">Approved</label>
+                <p-inputSwitch
+                  formControlName="approved"
+                  styleClass="mr-2"
+                ></p-inputSwitch>
+                <label for="approved" class="text-900">Approved</label>
               </div>
             </div>
             <div class="flex align-items-center justify-content-between mb-6">
               <div class="flex align-items-center">
-                <p-inputSwitch formControlName="public" styleClass="mr-2" />
-
-                <label for="rememberme1" class="text-900">Public</label>
+                <p-inputSwitch
+                  formControlName="public"
+                  styleClass="mr-2"
+                ></p-inputSwitch>
+                <label for="public" class="text-900">Public</label>
               </div>
             </div>
-
             <div class="flex align-items-center justify-content-between mb-6">
               <div class="flex align-items-center">
-                <p-inputSwitch formControlName="admin" styleClass="mr-2" />
-
-                <label for="rememberme1" class="text-900">Admin</label>
+                <p-inputSwitch
+                  formControlName="admin"
+                  styleClass="mr-2"
+                ></p-inputSwitch>
+                <label for="admin" class="text-900">Admin</label>
               </div>
             </div>
-
             <button
               pButton
               pRipple
@@ -72,7 +73,105 @@
       </div>
     </div>
   </div>
+
+  <!-- Message History Card -->
+  <div class="col-6">
+    <div class="flex-row">
+      <div class="surface-card p-4 shadow-2 border-round">
+        <div class="text-center justify-content-center mb-5">
+          <div class="text-900 text-3xl font-medium mb-3">
+            Alerts for {{ selectedInvestor.username }}
+          </div>
+        </div>
+        <div>
+          <form [formGroup]="messageForm">
+            <div class="col-12 justify-content-center">
+              <p-inputGroup>
+                <p-inputGroupAddon> Date </p-inputGroupAddon>
+                <p-calendar
+                  [(ngModel)]="date"
+                  [iconDisplay]="'input'"
+                  [showIcon]="true"
+                  inputId="updateDate"
+                  formControlName="date"
+                ></p-calendar>
+              </p-inputGroup>
+
+              <p-inputGroup class="mt-2">
+                <p-inputGroupAddon>Alert</p-inputGroupAddon>
+                <input type="text" pInputText formControlName="message" />
+              </p-inputGroup>
+              <p-inputGroup>
+                <button
+                  pButton
+                  pRipple
+                  label="Save Message"
+                  icon="pi pi-save"
+                  class="w-full mt-2"
+                  type="submit"
+                  (click)="saveMessage()"
+                ></button>
+              </p-inputGroup>
+              <p-inputGroup>
+                <button
+                  pButton
+                  pRipple
+                  severity="danger"
+                  label="Reset"
+                  icon="pi pi-replay"
+                  class="w-full mt-2"
+                  type="button"
+                  (click)="resetMessage()"
+                ></button>
+              </p-inputGroup>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- Alert History -->
+    <div class="flex-row mt-2">
+      <div class="surface-card p-4 shadow-2 border-round">
+        <p-table
+          [value]="messages"
+          [scrollable]="true"
+          scrollHeight="400px"
+          selectionMode="single"
+          [(selection)]="selectedMessage"
+          dataKey="code"
+          (onRowSelect)="selectMessage()"
+        >
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Date</th>
+              <th style="min-width: 350px">Alert</th>
+              <th></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-message>
+            <tr [pSelectableRow]="message">
+              <td>{{ message.date }}</td>
+              <td>${{ message.message }}</td>
+              <td>
+                <p-button
+                  icon="pi pi-trash"
+                  severity="danger"
+                  [outlined]="true"
+                  styleClass="p-button-rounded p-button-secondary p-button-outlined shadow-1"
+                  size="small"
+                  (click)="deleteMessage(message.id)"
+                ></p-button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
 </div>
+
+<!--Test-->
+
 <div
   class="surface-ground p-4"
   style="background: linear-gradient(to bottom right, #f2f2f2, #e6e6e6)"

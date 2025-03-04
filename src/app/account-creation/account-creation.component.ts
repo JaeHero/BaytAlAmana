@@ -7,6 +7,8 @@ import { Router, RouterLink } from '@angular/router';
 import { InputMask } from 'primeng/inputmask';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import { MessageModule } from 'primeng/message';
+
 import {
   ReactiveFormsModule,
   FormsModule,
@@ -30,6 +32,7 @@ import { Investor } from '../models/investor';
     ReactiveFormsModule,
     FormsModule,
     InputSwitchModule,
+    MessageModule,
   ],
   templateUrl: './account-creation.component.html',
   styleUrl: './account-creation.component.css',

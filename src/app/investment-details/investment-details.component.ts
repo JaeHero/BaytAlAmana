@@ -28,7 +28,7 @@ import { NgStyle } from '@angular/common';
 })
 export class InvestmentDetailsComponent implements OnInit {
   // Initialize with an empty object (use Partial to allow partial initialization if some properties are missing)
-  investment: Investment | null = null;
+  investment: Investment = {} as Investment;
   progressValue = 0;
 
   constructor(
@@ -63,5 +63,18 @@ export class InvestmentDetailsComponent implements OnInit {
   goToContact() {
     // Assuming investment.id is the unique identifier for the investment
     this.router.navigate(['/contact']);
+  }
+
+  getStatusLabel(status: number): string {
+    switch (status) {
+      case 1:
+        return 'Open';
+      case 2:
+        return 'In-Progress';
+      case 3:
+        return 'Closed';
+      default:
+        return 'Pending';
+    }
   }
 }

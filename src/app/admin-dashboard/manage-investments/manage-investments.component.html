@@ -162,7 +162,7 @@
       <!-- Section Title -->
 
       <p-carousel
-        [value]="investment"
+        [value]="openInvestments"
         [numVisible]="3"
         [numScroll]="1"
         autoplayInterval="3000"
@@ -195,7 +195,7 @@
                   "
                 />
                 <p-tag
-                  [value]="investment.status"
+                  [value]="getStatusLabel(investment.status)"
                   class="absolute"
                   [ngStyle]="{
                     'left.px': 5,
@@ -249,7 +249,7 @@
     <h2 class="text-center text-primary mb-4">In-Progress Investments</h2>
 
     <p-carousel
-      [value]="investment"
+      [value]="inProgressInvestments"
       [numVisible]="3"
       [numScroll]="1"
       autoplayInterval="3000"
@@ -280,7 +280,7 @@
                 "
               />
               <p-tag
-                [value]="investment.status"
+                [value]="getStatusLabel(investment.status)"
                 class="absolute"
                 [ngStyle]="{
                   'left.px': 5,
@@ -332,7 +332,7 @@
     <h2 class="text-center text-primary mb-4">Closed Investments</h2>
 
     <p-carousel
-      [value]="investment"
+      [value]="closedInvestments"
       [numVisible]="3"
       [numScroll]="1"
       autoplayInterval="3000"
@@ -363,7 +363,7 @@
                 "
               />
               <p-tag
-                [value]="investment.status"
+                [value]="getStatusLabel(investment.status)"
                 class="absolute"
                 [ngStyle]="{
                   'left.px': 5,

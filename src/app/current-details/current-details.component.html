@@ -13,8 +13,8 @@
       style="padding: 2rem; background-color: white"
     >
       <p-card
-        header="{{ investment?.name }}"
-        subheader="{{ investment?.location }}"
+        header="{{ investment.name }}"
+        subheader="{{ investment.location }}"
         [style]="{
           width: '360px',
           'border-radius': '12px',
@@ -38,13 +38,24 @@
 
         <!-- Card Content -->
         <div style="padding: 1rem 0" class="justify-content-center">
-          <h3>Start Date: {{ investment?.date }}</h3>
-          <h3>Expected Close Date: 02/15/2025</h3>
-          <h3>Status: <span class="text-primary">In-Progress</span></h3>
-          <h3>Investor Count: {{ investment?.investorCount }}</h3>
-          <h3>Total Initial Funding: $130,000</h3>
-          <h3>Total Expenditures: $42,900</h3>
-          <p-progressBar [value]="33" />
+          <h3>Start Date: {{ investment.date }}</h3>
+          <h3>Expected Close Date: {{ investment.expectedCloseDate }}</h3>
+          <h3>
+            Status:
+            <span class="text-primary">{{
+              investment.status === 1
+                ? "Open"
+                : investment.status === 2
+                ? "In-Progress"
+                : investment.status === 3
+                ? "Closed"
+                : "Unknown"
+            }}</span>
+          </h3>
+          <h3>Investor Count: {{ investment.investorCount }}</h3>
+          <h3>Total Initial Funding: {{ investment.funding | currency }}</h3>
+          <h3>Total Expenditures: {{ investment.fundingGoal | currency }}</h3>
+          <p-progressBar [value]="progressValue.toFixed()" />
         </div>
 
         <!-- Card Footer with Buttons -->

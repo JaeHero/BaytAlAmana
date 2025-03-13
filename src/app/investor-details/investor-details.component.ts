@@ -19,6 +19,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
 import { Message } from '../models/message';
+import { InputNumberModule } from 'primeng/inputnumber';
 import {
   FormBuilder,
   FormControl,
@@ -47,6 +48,7 @@ import { MessageService } from '../services/message.service';
     CalendarModule,
     CardModule,
     TableModule,
+    InputNumberModule,
   ],
   templateUrl: './investor-details.component.html',
   styleUrl: './investor-details.component.css',
@@ -128,6 +130,7 @@ export class InvestorDetailsComponent {
           approved: [this.selectedInvestor.approved],
           public: [this.selectedInvestor.public],
           admin: [this.selectedInvestor.admin],
+          profit: [this.selectedInvestor.profit],
         });
       });
   }
@@ -186,6 +189,7 @@ export class InvestorDetailsComponent {
     this.selectedInvestor.approved = this.investmentForm.value.approved;
     this.selectedInvestor.public = this.investmentForm.value.public;
     this.selectedInvestor.admin = this.investmentForm.value.admin;
+    this.selectedInvestor.profit = this.investmentForm.value.profit;
 
     this.investorService
       .updateInvestor(this.selectedInvestor)

@@ -236,17 +236,19 @@
               </ng-template>
             </div>
             <div class="flex justify-content-between mt-2">
+              <p-toast />
+              <p-confirmPopup />
               <p-button
                 icon="pi pi-trash"
                 severity="danger"
                 [outlined]="true"
                 styleClass="p-button-rounded p-button-secondary p-button-outlined shadow-1"
-                (click)="deleteInvestment(investment.id)"
+                (click)="confirmDelete($event, investment.id)"
               ></p-button>
               <p-toast></p-toast>
               <p-button
                 icon="pi pi-pencil"
-                styleClass="ml-2 p-button-rounded p-button-primary shadow-1"
+                styleClass="ml-8 p-button-rounded p-button-primary shadow-1"
                 (click)="goToDetails(investment)"
               ></p-button>
             </div>
@@ -321,17 +323,19 @@
             </div>
           </div>
           <div class="flex justify-content-between mt-2">
+            <p-toast />
+            <p-confirmPopup />
             <p-button
               icon="pi pi-trash"
               severity="danger"
               [outlined]="true"
               styleClass="p-button-rounded p-button-secondary p-button-outlined shadow-1"
-              (click)="deleteInvestment(investment.id)"
+              (click)="confirmDelete($event, investment.id)"
             ></p-button>
             <p-toast></p-toast>
             <p-button
               icon="pi pi-pencil"
-              styleClass="ml-2 p-button-rounded p-button-primary shadow-1"
+              styleClass="ml-8 p-button-rounded p-button-primary shadow-1"
               (click)="goToDetails(investment)"
             ></p-button>
           </div>
@@ -340,6 +344,7 @@
     </p-carousel>
   </div>
 </div>
+
 <div class="mt-6">
   <div
     class="card max-w-full p-4"
@@ -406,17 +411,19 @@
             <div class="mt-0 font-semibold text-xl text-green-700">33.3%</div>
           </div>
           <div class="flex justify-content-between mt-2">
+            <p-toast />
+            <p-confirmPopup />
             <p-button
               icon="pi pi-trash"
               severity="danger"
               [outlined]="true"
               styleClass="p-button-rounded p-button-secondary p-button-outlined shadow-1"
-              (click)="deleteInvestment(investment.id)"
+              (click)="confirmDelete($event, investment.id)"
             ></p-button>
-            <p-toast></p-toast>
+
             <p-button
               icon="pi pi-pencil"
-              styleClass="ml-2 p-button-rounded p-button-primary shadow-1"
+              styleClass="ml-8 p-button-rounded p-button-primary shadow-1"
               (click)="goToDetails(investment)"
             ></p-button>
           </div>

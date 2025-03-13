@@ -22,7 +22,8 @@ import { Investment } from '../../models/investment';
 import { InvestmentService } from '../../services/investment.service';
 import { FileUploadModule } from 'primeng/fileupload';
 import { HttpClient } from '@angular/common/http';
-import { MessageService } from 'primeng/api';
+import { MessageService, ConfirmationService } from 'primeng/api';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
 
 interface Status {
   label: string;
@@ -51,8 +52,9 @@ interface UploadEvent {
     FileUploadModule,
     ReactiveFormsModule,
     ToastModule,
+    ConfirmPopupModule,
   ],
-  providers: [MessageService],
+  providers: [MessageService, ConfirmationService],
   templateUrl: './manage-investments.component.html',
   styleUrl: './manage-investments.component.css',
 })
@@ -76,7 +78,8 @@ export class ManageInvestmentsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private investmentService: InvestmentService,
     private router: Router,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService
   ) {}
 
   ngOnInit() {
@@ -168,6 +171,35 @@ export class ManageInvestmentsComponent implements OnInit {
           (investment) => investment.status === 3
         );
       });
+  }
+
+  confirmDelete(event: Event, id: string) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'Do you want to delete this investment?',
+      icon: 'pi pi-exclamation-triangle',
+      rejectLabel: 'Cancel',
+      acceptLabel: 'Delete',
+      closeOnEscape: true,
+      acceptButtonStyleClass: 'p-button p-button-danger',
+      accept: () => {
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Confirmed',
+          detail: 'Investment deleted',
+          life: 3000,
+        });
+        this.deleteInvestment(id);
+      },
+      // reject: () => {
+      //   this.messageService.add({
+      //     severity: 'error',
+      //     summary: 'Rejected',
+      //     detail: 'You have rejected',
+      //     life: 3000,
+      //   });
+      // },
+    });
   }
 
   deleteInvestment(id: string) {

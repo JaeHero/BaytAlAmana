@@ -39,13 +39,30 @@
                 <label for="public" class="text-900">Public</label>
               </div>
             </div>
-            <div class="flex align-items-center justify-content-between mb-6">
+            <div class="flex align-items-center justify-content-between mb-4">
               <div class="flex align-items-center">
                 <p-inputSwitch
                   formControlName="admin"
                   styleClass="mr-2"
                 ></p-inputSwitch>
                 <label for="admin" class="text-900">Admin</label>
+              </div>
+            </div>
+            <label for="admin" class="text-1200">Profit</label>
+
+            <div
+              class="flex align-items-center justify-content-between mb-6 mt-1"
+            >
+              <div class="flex align-items-center">
+                <p-inputNumber
+                  inputId="funding"
+                  mode="currency"
+                  currency="USD"
+                  locale="en-US"
+                  class="mb-3"
+                  formControlName="profit"
+                >
+                </p-inputNumber>
               </div>
             </div>
             <button

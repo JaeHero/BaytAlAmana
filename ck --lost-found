@@ -1,0 +1,44 @@
+[33meabdec8[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;32ma[m[33m)[m HEAD@{0}: pull --tags origin master: Fast-forward
+[33m6fe63c0[m HEAD@{1}: checkout: moving from master to master
+[33m6fe63c0[m HEAD@{2}: reset: moving to HEAD^
+[33meabdec8[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;32ma[m[33m)[m HEAD@{3}: checkout: moving from master to master
+[33meabdec8[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;32ma[m[33m)[m HEAD@{4}: checkout: moving from master to master
+[33meabdec8[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;32ma[m[33m)[m HEAD@{5}: checkout: moving from master to master
+[33meabdec8[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;32ma[m[33m)[m HEAD@{6}: checkout: moving from master to master
+[33meabdec8[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;32ma[m[33m)[m HEAD@{7}: checkout: moving from master to master
+[33meabdec8[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;32ma[m[33m)[m HEAD@{8}: checkout: moving from master to master
+[33meabdec8[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;32ma[m[33m)[m HEAD@{9}: checkout: moving from eabdec82c60f9669b6051d4ff49e06dbe936fc1a to master
+[33meabdec8[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;32ma[m[33m)[m HEAD@{10}: checkout: moving from master to eabdec82c60f9669b6051d4ff49e06dbe936fc1a
+[33meabdec8[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;32ma[m[33m)[m HEAD@{11}: checkout: moving from eabdec82c60f9669b6051d4ff49e06dbe936fc1a to master
+[33meabdec8[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;32ma[m[33m)[m HEAD@{12}: checkout: moving from master to eabdec82c60f9669b6051d4ff49e06dbe936fc1a
+[33meabdec8[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;32ma[m[33m)[m HEAD@{13}: checkout: moving from master to master
+[33meabdec8[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;32ma[m[33m)[m HEAD@{14}: checkout: moving from master to master
+[33meabdec8[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;32ma[m[33m)[m HEAD@{15}: checkout: moving from master to master
+[33meabdec8[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;32ma[m[33m)[m HEAD@{16}: checkout: moving from master to master
+[33meabdec8[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;32ma[m[33m)[m HEAD@{17}: checkout: moving from d18b3b528b96019cd5b8ad3db0e63069693ecf56 to master
+[33md18b3b5[m HEAD@{18}: commit: ConfirmPopup and total investment amt
+[33meabdec8[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;32ma[m[33m)[m HEAD@{19}: checkout: moving from master to eabdec82c60f9669b6051d4ff49e06dbe936fc1a
+[33meabdec8[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;32ma[m[33m)[m HEAD@{20}: pull --tags origin master: Fast-forward
+[33m427f99e[m HEAD@{21}: pull --tags origin master: Fast-forward
+[33m50516f0[m HEAD@{22}: commit: 3/4 Commit
+[33mb64a330[m HEAD@{23}: commit: Alerts from admin implementation.
+[33m7da680a[m HEAD@{24}: commit: Account Creation page.
+[33m815dab3[m HEAD@{25}: commit: 3/1 changes.
+[33m6c4ae5a[m HEAD@{26}: commit: CRUD investment and Updates on admin dashboard. Investor list page completed.
+[33m152c5ac[m HEAD@{27}: commit: Updated api url
+[33mf5819e8[m HEAD@{28}: commit: Readme with team members
+[33meb6d736[m HEAD@{29}: commit: Get Investmnets/ Get Investmnets by ID
+[33m2139e40[m HEAD@{30}: commit: Updated Readme
+[33m4f0fbaa[m HEAD@{31}: commit: Table for edit investment
+[33m2bdbf7f[m HEAD@{32}: commit: Manage Investments
+[33md55e1da[m HEAD@{33}: commit: CRUD operations on Investments
+[33m06d04ff[m HEAD@{34}: commit: Admin Create Investment Form
+[33mb6f8f13[m HEAD@{35}: pull --tags origin master: Fast-forward
+[33m81693b9[m HEAD@{36}: pull --tags origin master: Merge made by the 'ort' strategy.
+[33m0233a05[m HEAD@{37}: commit: Added Profile Routes
+[33mec73e72[m HEAD@{38}: commit: Added admin dashboard and portfolio UI changes
+[33m677d5e1[m HEAD@{39}: commit: UI changes discussed during review (Finished changes for general user UI)
+[33mc556262[m HEAD@{40}: commit: Post Inital Review
+[33m0e8ea99[m HEAD@{41}: pull --tags origin master: Fast-forward
+[33me411ec1[m HEAD@{42}: commit: Initial Commit
+[33mc99640f[m HEAD@{43}: commit (initial): initial commit

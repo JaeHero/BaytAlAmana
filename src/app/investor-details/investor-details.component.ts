@@ -20,6 +20,11 @@ import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
 import { Message } from '../models/message';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { ConfirmationService } from 'primeng/api';
+import { MessageService } from 'primeng/api';
+import { UserMessageService } from '../services/message.service';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import {
   FormBuilder,
   FormControl,
@@ -27,7 +32,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MessageService } from '../services/message.service';
 
 @Component({
   selector: 'app-investor-details',
@@ -49,9 +53,12 @@ import { MessageService } from '../services/message.service';
     CardModule,
     TableModule,
     InputNumberModule,
+    ToastModule,
+    ConfirmPopupModule,
   ],
   templateUrl: './investor-details.component.html',
   styleUrl: './investor-details.component.css',
+  providers: [ConfirmationService, MessageService, UserMessageService],
 })
 export class InvestorDetailsComponent {
   investment: Investment[] = [];
@@ -73,7 +80,9 @@ export class InvestorDetailsComponent {
     private router: Router,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private userMessageService: UserMessageService,
+    private confirmationService: ConfirmationService
   ) {}
   ngOnInit() {
     this.investor = this.route.snapshot.paramMap.get('id');
@@ -119,8 +128,8 @@ export class InvestorDetailsComponent {
     }
   }
 
-  getInvestor() {
-    this.investorService
+  async getInvestor() {
+    await this.investorService
       .getInvestorById(this.investor)
       .subscribe((investor: Investor) => {
         this.selectedInvestor = investor;
@@ -175,6 +184,35 @@ export class InvestorDetailsComponent {
       });
   }
 
+  confirmUserRemoval(event: Event, id: number) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'Do you want to remove user from investment?',
+      icon: 'pi pi-exclamation-triangle',
+      rejectLabel: 'Cancel',
+      acceptLabel: 'Remove',
+      closeOnEscape: true,
+      acceptButtonStyleClass: 'p-button p-button-danger',
+      accept: () => {
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Confirmed',
+          detail: 'Investment deleted',
+          life: 3000,
+        });
+        this.removeUserFromInvestment(id);
+      },
+      // reject: () => {
+      //   this.messageService.add({
+      //     severity: 'error',
+      //     summary: 'Rejected',
+      //     detail: 'You have rejected',
+      //     life: 3000,
+      //   });
+      // },
+    });
+  }
+
   removeUserFromInvestment(investmentId: number) {
     this.investorService
       .removeUserFromInvestment(this.investor, investmentId)
@@ -220,7 +258,7 @@ export class InvestorDetailsComponent {
     if (this.messageForm.valid && !this.editMode) {
       this.message = this.messageForm.value;
       this.message.userId = Number(this.investor);
-      this.messageService.createMessage(this.message).subscribe({
+      this.userMessageService.createMessage(this.message).subscribe({
         next: (message: Message) => {
           this.messages.push(message);
           console.log(message);
@@ -235,7 +273,7 @@ export class InvestorDetailsComponent {
   }
 
   deleteMessage(id: string) {
-    this.messageService.deleteMessage(id).subscribe({
+    this.userMessageService.deleteMessage(id).subscribe({
       next: () => {
         this.getInvestor();
       },
@@ -250,7 +288,7 @@ export class InvestorDetailsComponent {
     this.message.id = this.selectedMessage.id;
     this.message.userId = Number(this.investor);
     console.log(this.message);
-    this.messageService
+    this.userMessageService
       .updateMessage(this.message.id.toString(), this.message)
       .subscribe({
         next: (message: Message) => {

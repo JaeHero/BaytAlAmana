@@ -271,12 +271,16 @@
                   [outlined]="true"
                   styleClass="p-button-rounded p-button-secondary p-button-outlined shadow-1"
                 ></p-button> -->
-                <p-button
-                  icon="pi pi-times"
-                  severity="danger"
-                  styleClass="ml-2 p-button-rounded p-button-primary shadow-1"
-                  (click)="removeUserFromInvestment(investment.id)"
-                ></p-button>
+                <div>
+                  <p-button
+                    icon="pi pi-times"
+                    severity="danger"
+                    styleClass="ml-2 p-button-rounded p-button-primary shadow-1"
+                    (click)="confirmUserRemoval($event, investment.id)"
+                  ></p-button>
+                  <p-toast />
+                  <p-confirmPopup />
+                </div>
               </span>
             </div>
           </div>

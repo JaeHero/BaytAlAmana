@@ -21,6 +21,6 @@
 <li>XXXXTESTXXX</li>
 <li></li>
 
-<li></li>
+<li>Add creation date to User entity (Backend team)</li>
 
 </ul>

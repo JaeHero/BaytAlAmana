@@ -8,7 +8,8 @@ import { InvestmentService } from '../services/investment.service';
 import { ImageModule } from 'primeng/image';
 import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
-
+import { VanillaTiltDirective } from '../vanilla-tilt.directive';
+import { CurrencyPipe } from '@angular/common';
 @Component({
   selector: 'app-portfolio',
   standalone: true,
@@ -18,6 +19,8 @@ import { Message } from 'primeng/api';
     ButtonModule,
     ImageModule,
     MessagesModule,
+    VanillaTiltDirective,
+    CurrencyPipe,
   ],
   templateUrl: './portfolio.component.html',
   styleUrl: './portfolio.component.css',

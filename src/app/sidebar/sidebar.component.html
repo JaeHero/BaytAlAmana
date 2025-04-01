@@ -1,4 +1,4 @@
-<p-sidebar #sidebarRef [(visible)]="sidebarVisible">
+<p-sidebar #sidebarRef [(visible)]="sidebarVisible" styleClass="sidebar">
   <ng-template pTemplate="headless">
     <div class="flex flex-column h-full">
       <div
@@ -106,8 +106,8 @@
                 class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
                 routerLink=""
               >
-                <i class="pi pi-home mr-2"></i>
-                <span class="font-medium">Home</span>
+                <i class="pi pi-home mr-2 text-primary"></i>
+                <span class="font-bold text-primary">Home</span>
               </a>
             </li>
           </div>
@@ -118,8 +118,8 @@
                 class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
                 routerLink="/admin"
               >
-                <i class="pi pi-chart-bar mr-2"></i>
-                <span class="font-medium">Admin Dashboard</span>
+                <i class="pi pi-chart-bar mr-2 text-primary"></i>
+                <span class="font-bold text-primary">Admin Dashboard</span>
               </a>
             </li>
           </div>
@@ -130,8 +130,8 @@
                 class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
                 routerLink="/portfolio"
               >
-                <i class="pi pi-chart-line mr-2"></i>
-                <span class="font-medium">Portfolio</span>
+                <i class="pi pi-chart-line mr-2 text-primary"></i>
+                <span class="font-bold text-primary">Portfolio</span>
               </a>
             </li>
           </div>
@@ -142,8 +142,8 @@
                 class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
                 routerLink="investors"
               >
-                <i class="pi pi-users mr-2"></i>
-                <span class="font-medium">Investors</span>
+                <i class="pi pi-users mr-2 text-primary"></i>
+                <span class="font-bold text-primary">Investors</span>
               </a>
             </li>
           </div>
@@ -154,8 +154,8 @@
                 class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
                 routerLink="info"
               >
-                <i class="pi pi-info-circle mr-2"></i>
-                <span class="font-medium">Info</span>
+                <i class="pi pi-info-circle mr-2 text-primary"></i>
+                <span class="font-bold text-primary">Info</span>
               </a>
             </li>
           </div>
@@ -166,8 +166,8 @@
                 class="flex align-items-center cursor-pointer p-3 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
                 routerLink="contact"
               >
-                <i class="pi pi-phone mr-2"></i>
-                <span class="font-medium">Contact Us</span>
+                <i class="pi pi-phone mr-2 text-primary"></i>
+                <span class="font-bold text-primary">Contact Us</span>
               </a>
             </li>
           </div>
@@ -184,7 +184,7 @@
             image="https://primefaces.org/cdn/primeng/images/demo/avatar/onyamalimba.png"
             shape="circle"
           />
-          <span class="font-bold">Jaeden Hero</span>
+          <span class="font-bold text-primary">Jaeden Hero</span>
         </a>
       </div>
     </div>

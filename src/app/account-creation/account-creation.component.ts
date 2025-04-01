@@ -65,6 +65,7 @@ export class AccountCreationComponent implements OnInit {
   createAccount() {
     if (this.accountCreationForm.valid) {
       this.investor = this.accountCreationForm.value;
+      this.investor.createdAt = new Date();
       this.investorService.createUser(this.investor).subscribe(
         (investor) => {
           console.log(investor);

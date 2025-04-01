@@ -143,6 +143,7 @@
               class="w-full"
               type="submit"
               (click)="createInvestment()"
+              [disabled]="!investmentForm.valid"
             ></button>
             <p-toast></p-toast>
           </div>
@@ -151,11 +152,12 @@
     </div>
     <!-- Card Section with Shadow and Rounded Borders -->
     <div
-      class="card max-w-full p-4"
+      class="carousel-container max-w-full p-4"
       style="
-        background-color: white;
+        background-color: rgba(255, 255, 255, 0.2); /* 20% white */
+        backdrop-filter: blur(10px); /* 'Glass' effect */
         border-radius: 16px;
-        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       "
     >
       <h2 class="text-center text-primary mb-4">Open Investments</h2>

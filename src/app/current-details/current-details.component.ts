@@ -12,6 +12,7 @@ import { NgStyle, CurrencyPipe } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { Update } from '../models/update';
 import { UpdateService } from '../services/update.service';
+import { VanillaTiltDirective } from '../vanilla-tilt.directive';
 
 interface Status {
   label: string;
@@ -32,6 +33,7 @@ interface Status {
     RouterLink,
     TableModule,
     CurrencyPipe,
+    VanillaTiltDirective,
   ],
   templateUrl: './current-details.component.html',
   styleUrl: './current-details.component.css',

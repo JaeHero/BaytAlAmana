@@ -34,7 +34,7 @@ export class ContactComponent {
   }
   onSendMessage() {
     this.messageService.add({
-      severity: 'success',
+      severity: 'info',
       summary: 'Success',
       detail: 'Message Sent',
     });

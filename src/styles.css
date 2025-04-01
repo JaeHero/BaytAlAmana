@@ -1,0 +1,23 @@
+@import "aos/dist/aos.css";
+/* * {
+  margin: 0;
+  padding: 0;
+} */
+:root {
+  color-scheme: dark;
+}
+.glass-card {
+  background-color: rgba(255, 255, 255, 0.2); /* 20% white */
+  backdrop-filter: blur(10px); /* 'Glass' effect */
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.sidebar {
+  background: #000000;
+  color: black;
+}
+
+.profile {
+  background: black;
+  color: black;
+}

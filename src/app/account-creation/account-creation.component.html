@@ -1,105 +1,113 @@
-<div class="flex justify-content-center align-content-center flex-wrap mt-6">
-  <div class="surface-card p-4 shadow-2 border-round w-full lg:w-6">
-    <div class="text-center mb-5">
-      <!-- <img
+<div class="surface-ground min-h-screen p-4 animated-gradient">
+  <div class="col-12">
+    <div
+      class="flex justify-content-center align-content-center flex-wrap mt-6"
+    >
+      <div class="surface-card p-4 shadow-2 border-round w-full lg:w-6">
+        <div class="text-center mb-5">
+          <!-- <img
         src="assets/images/blocks/logos/hyper.svg"
         alt="Image"
         height="50"
         class="mb-3"
       /> -->
-      <div class="text-900 text-3xl font-medium mb-3">Create an Account</div>
-      <span class="text-600 font-medium line-height-3"
-        >Already have an account?</span
-      >
-      <a
-        class="font-medium no-underline ml-2 text-blue-500 cursor-pointer"
-        routerLink="/login"
-        >Sign in!</a
-      >
-    </div>
-    <form [formGroup]="accountCreationForm">
-      <div>
-        <label for="email1" class="block text-900 font-medium mb-2"
-          >Username</label
-        >
-        <input
-          id="email1"
-          type="text"
-          placeholder="Username"
-          pInputText
-          class="w-full mb-3"
-          formControlName="username"
-          required
-        />
-        <!-- <p-message severity="error" variant="simple" size="small"
+          <div class="text-900 text-3xl font-medium mb-3">
+            Create an Account
+          </div>
+          <span class="text-600 font-medium line-height-3"
+            >Already have an account?</span
+          >
+          <a
+            class="font-medium no-underline ml-2 text-blue-500 cursor-pointer"
+            routerLink="/login"
+            >Sign in!</a
+          >
+        </div>
+        <form [formGroup]="accountCreationForm">
+          <div>
+            <label for="email1" class="block text-900 font-medium mb-2"
+              >Username</label
+            >
+            <input
+              id="email1"
+              type="text"
+              placeholder="Username"
+              pInputText
+              class="w-full mb-3"
+              formControlName="username"
+              required
+            />
+            <!-- <p-message severity="error" variant="simple" size="small"
           >Username is required</p-message
         > -->
 
-        <div>
-          <label for="password1" class="block text-900 font-medium mb-2"
-            >Email</label
-          >
-          <input
-            id="password1"
-            type="email"
-            placeholder="Email"
-            pInputText
-            class="w-full mb-3"
-            formControlName="email"
-          />
+            <div>
+              <label for="password1" class="block text-900 font-medium mb-2"
+                >Email</label
+              >
+              <input
+                id="password1"
+                type="email"
+                placeholder="Email"
+                pInputText
+                class="w-full mb-3"
+                formControlName="email"
+              />
 
-          <label for="password1" class="block text-900 font-medium mb-2"
-            >Password</label
-          >
-          <input
-            id="password1"
-            type="password"
-            placeholder="Password"
-            pInputText
-            class="w-full mb-3"
-            formControlName="password"
-          />
-          <label for="password1" class="block text-900 font-medium mb-2"
-            >Phone</label
-          >
-          <input
-            id="password1"
-            type="text"
-            placeholder="Phone Number"
-            pInputText
-            class="w-full mb-3"
-            formControlName="phone"
-          />
+              <label for="password1" class="block text-900 font-medium mb-2"
+                >Password</label
+              >
+              <input
+                id="password1"
+                type="password"
+                placeholder="Password"
+                pInputText
+                class="w-full mb-3"
+                formControlName="password"
+              />
+              <label for="password1" class="block text-900 font-medium mb-2"
+                >Phone</label
+              >
+              <input
+                id="password1"
+                type="text"
+                placeholder="Phone Number"
+                pInputText
+                class="w-full mb-3"
+                formControlName="phone"
+              />
 
-          <label for="password1" class="block text-900 font-medium mb-2"
-            >Investment Amount</label
-          >
-          <p-inputNumber
-            inputId="funding"
-            mode="currency"
-            currency="USD"
-            locale="en-US"
-            class="mb-3"
-            formControlName="intendedInvestment"
-          ></p-inputNumber>
+              <label for="password1" class="block text-900 font-medium mb-2"
+                >Investment Amount</label
+              >
+              <p-inputNumber
+                inputId="funding"
+                mode="currency"
+                currency="USD"
+                locale="en-US"
+                class="mb-3"
+                formControlName="intendedInvestment"
+              ></p-inputNumber>
 
-          <div class="flex align-items-center justify-content-between mb-6">
-            <div class="flex align-items-center">
-              <p-inputSwitch formControlName="public" styleClass="mr-2" />
-              <label for="rememberme1" class="text-900">Public</label>
+              <div class="flex align-items-center justify-content-between mb-6">
+                <div class="flex align-items-center">
+                  <p-inputSwitch formControlName="public" styleClass="mr-2" />
+                  <label for="rememberme1" class="text-900">Public</label>
+                </div>
+              </div>
+
+              <button
+                pButton
+                pRipple
+                label="Create Account"
+                icon="pi pi-user"
+                class="w-full"
+                (click)="createAccount()"
+              ></button>
             </div>
           </div>
-
-          <button
-            pButton
-            pRipple
-            label="Create Account"
-            icon="pi pi-user"
-            class="w-full"
-            (click)="createAccount()"
-          ></button>
-        </div>
+        </form>
       </div>
-    </form>
+    </div>
   </div>
 </div>

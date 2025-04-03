@@ -51,6 +51,9 @@ export class HomeComponent implements OnInit {
         this.closedInvestment = this.investment.filter(
           (investment) => investment.status === 3
         );
+        console.log('OPEN INVESTMENTS: ', this.openInvestments);
+        console.log('IN PROGRESS INVESTMENTS: ', this.inProgressInvestment);
+        console.log('CLOSED INVESTMENTS: ', this.closedInvestment);
       });
     console.log(this.investment);
 

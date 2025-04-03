@@ -9,10 +9,10 @@ export interface Investor {
   investmentCount: number;
   profit: number;
   intendedInvestment: number;
-  approved: boolean;
-  public: boolean;
+  isApproved: boolean;
+  isPublic: boolean;
   createdAt: Date;
-  admin: boolean;
+  isAdmin: boolean;
   investments: Investment[];
   messages: Message[];
 }

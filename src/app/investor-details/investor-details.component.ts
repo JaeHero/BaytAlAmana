@@ -135,10 +135,11 @@ export class InvestorDetailsComponent {
         this.selectedInvestor = investor;
         this.messages = this.selectedInvestor.messages;
         // Initialize form after we have the investor data
+        console.log(investor);
         this.investmentForm = this.formBuilder.group({
-          approved: [this.selectedInvestor.approved],
-          public: [this.selectedInvestor.public],
-          admin: [this.selectedInvestor.admin],
+          approved: [this.selectedInvestor.isApproved],
+          public: [this.selectedInvestor.isPublic],
+          admin: [this.selectedInvestor.isAdmin],
           profit: [this.selectedInvestor.profit],
         });
       });
@@ -224,9 +225,10 @@ export class InvestorDetailsComponent {
   }
 
   saveInvestor() {
-    this.selectedInvestor.approved = this.investmentForm.value.approved;
-    this.selectedInvestor.public = this.investmentForm.value.public;
-    this.selectedInvestor.admin = this.investmentForm.value.admin;
+    this.selectedInvestor.isApproved =
+      this.investmentForm.get('appoved')?.value;
+    this.selectedInvestor.isPublic = this.investmentForm.value.public;
+    this.selectedInvestor.isAdmin = this.investmentForm.value.admin;
     this.selectedInvestor.profit = this.investmentForm.value.profit;
 
     this.investorService

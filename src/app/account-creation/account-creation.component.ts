@@ -53,7 +53,7 @@ export class AccountCreationComponent implements OnInit {
       email: ['', Validators.required],
       password: ['', Validators.required],
       phone: ['', Validators.required],
-      public: [false],
+      isPublic: [false],
       intendedInvestment: ['', Validators.required],
     });
   }

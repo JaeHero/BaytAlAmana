@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject, Inject } from '@angular/core';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
 import { Investment } from '../models/investment';
@@ -6,7 +6,6 @@ import { InvestmentService } from '../services/investment.service';
 import { Router, Route, ActivatedRoute } from '@angular/router';
 import { TagModule } from 'primeng/tag';
 import { InvestorService } from '../services/investor.service';
-import { Investor } from '../models/investor';
 import { CheckboxModule } from 'primeng/checkbox';
 import { AvatarModule } from 'primeng/avatar';
 import { CommonModule } from '@angular/common';
@@ -26,12 +25,13 @@ import { UserMessageService } from '../services/message.service';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import {
+  FormsModule,
   FormBuilder,
-  FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Investor } from '../models/investor';
 
 @Component({
   selector: 'app-investor-details',
@@ -55,6 +55,7 @@ import {
     InputNumberModule,
     ToastModule,
     ConfirmPopupModule,
+    FormsModule,
   ],
   templateUrl: './investor-details.component.html',
   styleUrl: './investor-details.component.css',
@@ -77,12 +78,12 @@ export class InvestorDetailsComponent {
   constructor(
     private investmentService: InvestmentService,
     private investorService: InvestorService,
-    private router: Router,
-    private route: ActivatedRoute,
+    @Inject(Router) private router: Router,
     private formBuilder: FormBuilder,
     private messageService: MessageService,
     private userMessageService: UserMessageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    @Inject(ActivatedRoute) private route: ActivatedRoute
   ) {}
   ngOnInit() {
     this.investor = this.route.snapshot.paramMap.get('id');
@@ -129,7 +130,7 @@ export class InvestorDetailsComponent {
   }
 
   async getInvestor() {
-    await this.investorService
+    this.investorService
       .getInvestorById(this.investor)
       .subscribe((investor: Investor) => {
         this.selectedInvestor = investor;
@@ -137,9 +138,9 @@ export class InvestorDetailsComponent {
         // Initialize form after we have the investor data
         console.log(investor);
         this.investmentForm = this.formBuilder.group({
-          approved: [this.selectedInvestor.isApproved],
-          public: [this.selectedInvestor.isPublic],
-          admin: [this.selectedInvestor.isAdmin],
+          approved: [this.selectedInvestor.approved],
+          public: [this.selectedInvestor.public],
+          admin: [this.selectedInvestor.admin],
           profit: [this.selectedInvestor.profit],
         });
       });
@@ -214,6 +215,29 @@ export class InvestorDetailsComponent {
     });
   }
 
+  confirmAlertRemoval(event: Event, id: string) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'Do you want to delete this alert?',
+      icon: 'pi pi-exclamation-triangle',
+      rejectLabel: 'Cancel',
+      acceptLabel: 'Remove',
+      closeOnEscape: true,
+      acceptButtonStyleClass: 'p-button p-button-danger',
+      accept: () => {
+        this.deleteMessage(id);
+      },
+      // reject: () => {
+      //   this.messageService.add({
+      //     severity: 'error',
+      //     summary: 'Rejected',
+      //     detail: 'You have rejected',
+      //     life: 3000,
+      //   });
+      // },
+    });
+  }
+
   removeUserFromInvestment(investmentId: number) {
     this.investorService
       .removeUserFromInvestment(this.investor, investmentId)
@@ -225,17 +249,37 @@ export class InvestorDetailsComponent {
   }
 
   saveInvestor() {
-    this.selectedInvestor.isApproved =
-      this.investmentForm.get('appoved')?.value;
-    this.selectedInvestor.isPublic = this.investmentForm.value.public;
-    this.selectedInvestor.isAdmin = this.investmentForm.value.admin;
+    this.selectedInvestor.approved = this.investmentForm.value.approved;
+    this.selectedInvestor.public = this.investmentForm.value.public;
+    this.selectedInvestor.admin = this.investmentForm.value.admin;
     this.selectedInvestor.profit = this.investmentForm.value.profit;
 
-    this.investorService
-      .updateInvestor(this.selectedInvestor)
-      .subscribe((response: boolean) => {
-        console.log(response);
-      });
+    console.log(this.investmentForm.value.approved);
+
+    this.investorService.updateInvestor(this.selectedInvestor).subscribe({
+      next: (response: boolean) => {
+        console.log('RESPONSE', response);
+      },
+      error: (err: any) => {
+        console.log(err);
+      },
+    });
+    this.router.navigate(['/admin']);
+  }
+
+  confirmDeleteInvestor(event: Event) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'Delete ' + this.selectedInvestor?.username + '?',
+      icon: 'pi pi-exclamation-triangle',
+      rejectLabel: 'Cancel',
+      acceptLabel: 'Delete',
+      closeOnEscape: true,
+      acceptButtonStyleClass: 'p-button p-button-danger',
+      accept: () => {
+        this.deleteInvestor();
+      },
+    });
   }
 
   deleteInvestor() {

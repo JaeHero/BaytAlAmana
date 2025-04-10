@@ -71,13 +71,12 @@
             <label for="password1" class="block text-900 font-medium mb-2"
               >Phone</label
             >
-            <input
-              id="password1"
-              type="text"
-              placeholder="Phone"
-              pInputText
-              class="w-full mb-3"
-            />
+            <p-inputMask
+              mask="(999) 999-9999"
+              formControlName="phone"
+              placeholder="(999) 999-9999"
+            >
+            </p-inputMask>
             <label for="password1" class="block text-900 font-medium mb-2"
               >Address</label
             >
@@ -91,13 +90,13 @@
             <label for="password1" class="block text-900 font-medium mb-2"
               >Investment Amount</label
             >
-            <input
-              id="password1"
-              type="number"
-              placeholder="How much are you interested in investing"
-              pInputText
-              class="w-full mb-3"
-            />
+            <p-inputNumber
+              inputId="funding"
+              mode="currency"
+              currency="USD"
+              locale="en-US"
+              class="mb-3"
+            ></p-inputNumber>
 
             <div class="flex align-items-center justify-content-between mb-6">
               <div class="flex align-items-center">
@@ -126,7 +125,7 @@
       </div>
     </div>
     <div class="col-12">
-      <p-fieldset>
+      <!-- <p-fieldset>
         <ng-template pTemplate="header">
           <div class="flex align-items-center gap-2 px-2">
             <p-avatar
@@ -137,7 +136,7 @@
           </div>
         </ng-template>
         <p class="m-0">Lorem ipsum dolor sit amet...</p>
-      </p-fieldset>
+      </p-fieldset> -->
     </div>
   </div>
 </div>

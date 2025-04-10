@@ -6,7 +6,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { Router, RouterLink } from '@angular/router';
 import { FieldsetModule } from 'primeng/fieldset';
 import { AvatarModule } from 'primeng/avatar';
-
+import { InputMaskModule } from 'primeng/inputmask';
+import { InputNumberModule } from 'primeng/inputnumber';
 @Component({
   selector: 'app-profile',
   standalone: true,
@@ -18,6 +19,8 @@ import { AvatarModule } from 'primeng/avatar';
     RouterLink,
     FieldsetModule,
     AvatarModule,
+    InputMaskModule,
+    InputNumberModule,
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',

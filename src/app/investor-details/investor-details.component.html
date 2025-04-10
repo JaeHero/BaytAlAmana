@@ -48,8 +48,7 @@
                 <label for="admin" class="text-900">Admin</label>
               </div>
             </div>
-            <label for="admin" class="text-1200">Profit</label>
-
+            <label for="admin" class="text-900">Profit</label>
             <div
               class="flex align-items-center justify-content-between mb-6 mt-1"
             >
@@ -83,8 +82,9 @@
               label="Delete Profile"
               icon="pi pi-trash"
               class="w-full"
-              (click)="deleteInvestor()"
+              (click)="confirmDeleteInvestor($event)"
             ></button>
+            <p-confirmPopup />
           </div>
         </form>
       </div>
@@ -176,8 +176,9 @@
                   [outlined]="true"
                   styleClass="p-button-rounded p-button-secondary p-button-outlined shadow-1"
                   size="small"
-                  (click)="deleteMessage(message.id)"
+                  (click)="confirmAlertRemoval($event, message.id)"
                 ></p-button>
+                <p-confirmPopup />
               </td>
             </tr>
           </ng-template>

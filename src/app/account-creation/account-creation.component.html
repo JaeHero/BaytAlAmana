@@ -108,6 +108,7 @@
                 pRipple
                 label="Create Account"
                 icon="pi pi-user"
+                [disabled]="accountCreationForm.invalid"
                 class="w-full"
                 (click)="createAccount()"
               ></button>

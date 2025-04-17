@@ -176,15 +176,44 @@ export class InvestorDetailsComponent {
       });
   }
 
-  addUserToInvestment(investmentId: number) {
-    this.investorService
-      .addUsertoInvestment(this.investor, investmentId)
-      .subscribe((response: boolean) => {
-        console.log(response);
+  confirmAddUserToInvestment(event: Event, id: number) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'Are you sure you want to add this investment',
+      icon: 'pi pi-exclamation-triangle',
+      rejectLabel: 'Cancel',
+      acceptLabel: 'Add',
+      closeOnEscape: true,
+      acceptButtonStyleClass: 'p-button p-button-success',
+      accept: () => {
+        this.addUserToInvestment(id);
+      },
+    });
+  }
+
+  addUserToInvestment(id: number) {
+    this.investorService.addUsertoInvestment(this.selectedInvestor.id, id).subscribe({
+      next: () => {
+        this.getInvestor();
         this.getInvestorInvestments();
         this.getAvailableInvestments();
-      });
+      },
+      error: (error: any) => {
+        console.error('Error dding user to investment', error);
+      },
+    });
   }
+
+
+  // addUserToInvestment(investmentId: number) {
+  //   this.investorService
+  //     .addUsertoInvestment(this.investor, investmentId)
+  //     .subscribe((response: boolean) => {
+  //       console.log(response);
+  //       this.getInvestorInvestments();
+  //       this.getAvailableInvestments();
+  //     });
+  // }
 
   confirmUserRemoval(event: Event, id: number) {
     this.confirmationService.confirm({

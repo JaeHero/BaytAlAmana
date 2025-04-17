@@ -27,7 +27,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 })
 export class ProfileComponent {
   constructor(private router: Router) {}
-  createAccount() {
+  updateProfile() {
     this.router.navigate(['']);
   }
 }

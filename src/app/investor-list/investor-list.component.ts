@@ -28,7 +28,7 @@ export class InvestorListComponent implements OnInit {
   }
   loadInitialInvestors(): void {
     this.investorService.getInvestors().subscribe((investors: Investor[]) => {
-      this.investors = investors;
+      this.investors = investors.filter((investor) => investor.public);
     });
   }
 }

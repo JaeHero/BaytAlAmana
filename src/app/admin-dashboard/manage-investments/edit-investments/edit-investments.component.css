@@ -1,0 +1,40 @@
+.wrap-text {
+  white-space: normal !important;
+  word-wrap: break-word;
+  word-break: break-word;
+}
+.red-button {
+  background-color: #ef4444 !important; /* Red color */
+  border-color: #dc2626 !important;
+  color: white !important;
+}
+.image-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: flex-start;
+}
+
+.image-card {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  width: 400px;
+  max-width: 100%;
+}
+
+.image-card iframe {
+  border: none;
+  border-radius: 12px;
+  width: 100%;
+  height: 250px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.image-title {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  text-align: center;
+  color: #fff; /* or #333 for light backgrounds */
+}

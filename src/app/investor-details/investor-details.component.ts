@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject, Inject } from '@angular/core';
 import { CarouselModule } from 'primeng/carousel';
 import { ButtonModule } from 'primeng/button';
 import { Investment } from '../models/investment';
@@ -6,7 +6,6 @@ import { InvestmentService } from '../services/investment.service';
 import { Router, Route, ActivatedRoute } from '@angular/router';
 import { TagModule } from 'primeng/tag';
 import { InvestorService } from '../services/investor.service';
-import { Investor } from '../models/investor';
 import { CheckboxModule } from 'primeng/checkbox';
 import { AvatarModule } from 'primeng/avatar';
 import { CommonModule } from '@angular/common';
@@ -20,14 +19,19 @@ import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
 import { Message } from '../models/message';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { ConfirmationService } from 'primeng/api';
+import { MessageService } from 'primeng/api';
+import { UserMessageService } from '../services/message.service';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import {
+  FormsModule,
   FormBuilder,
-  FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MessageService } from '../services/message.service';
+import { Investor } from '../models/investor';
 
 @Component({
   selector: 'app-investor-details',
@@ -49,9 +53,13 @@ import { MessageService } from '../services/message.service';
     CardModule,
     TableModule,
     InputNumberModule,
+    ToastModule,
+    ConfirmPopupModule,
+    FormsModule,
   ],
   templateUrl: './investor-details.component.html',
   styleUrl: './investor-details.component.css',
+  providers: [ConfirmationService, MessageService, UserMessageService],
 })
 export class InvestorDetailsComponent {
   investment: Investment[] = [];
@@ -70,10 +78,12 @@ export class InvestorDetailsComponent {
   constructor(
     private investmentService: InvestmentService,
     private investorService: InvestorService,
-    private router: Router,
-    private route: ActivatedRoute,
+    @Inject(Router) private router: Router,
     private formBuilder: FormBuilder,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private userMessageService: UserMessageService,
+    private confirmationService: ConfirmationService,
+    @Inject(ActivatedRoute) private route: ActivatedRoute
   ) {}
   ngOnInit() {
     this.investor = this.route.snapshot.paramMap.get('id');
@@ -119,13 +129,14 @@ export class InvestorDetailsComponent {
     }
   }
 
-  getInvestor() {
+  async getInvestor() {
     this.investorService
       .getInvestorById(this.investor)
       .subscribe((investor: Investor) => {
         this.selectedInvestor = investor;
         this.messages = this.selectedInvestor.messages;
         // Initialize form after we have the investor data
+        console.log(investor);
         this.investmentForm = this.formBuilder.group({
           approved: [this.selectedInvestor.approved],
           public: [this.selectedInvestor.public],
@@ -165,14 +176,96 @@ export class InvestorDetailsComponent {
       });
   }
 
-  addUserToInvestment(investmentId: number) {
+  confirmAddUserToInvestment(event: Event, id: number) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'Are you sure you want to add this investment',
+      icon: 'pi pi-exclamation-triangle',
+      rejectLabel: 'Cancel',
+      acceptLabel: 'Add',
+      closeOnEscape: true,
+      acceptButtonStyleClass: 'p-button p-button-success',
+      accept: () => {
+        this.addUserToInvestment(id);
+      },
+    });
+  }
+
+  addUserToInvestment(id: number) {
     this.investorService
-      .addUsertoInvestment(this.investor, investmentId)
-      .subscribe((response: boolean) => {
-        console.log(response);
-        this.getInvestorInvestments();
-        this.getAvailableInvestments();
+      .addUsertoInvestment(this.selectedInvestor.id, id)
+      .subscribe({
+        next: () => {
+          this.getInvestor();
+          this.getInvestorInvestments();
+          this.getAvailableInvestments();
+        },
+        error: (error: any) => {
+          console.error('Error dding user to investment', error);
+        },
       });
+  }
+
+  // addUserToInvestment(investmentId: number) {
+  //   this.investorService
+  //     .addUsertoInvestment(this.investor, investmentId)
+  //     .subscribe((response: boolean) => {
+  //       console.log(response);
+  //       this.getInvestorInvestments();
+  //       this.getAvailableInvestments();
+  //     });
+  // }
+
+  confirmUserRemoval(event: Event, id: number) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'Do you want to remove user from investment?',
+      icon: 'pi pi-exclamation-triangle',
+      rejectLabel: 'Cancel',
+      acceptLabel: 'Remove',
+      closeOnEscape: true,
+      acceptButtonStyleClass: 'p-button p-button-danger',
+      accept: () => {
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Confirmed',
+          detail: 'Investment deleted',
+          life: 3000,
+        });
+        this.removeUserFromInvestment(id);
+      },
+      // reject: () => {
+      //   this.messageService.add({
+      //     severity: 'error',
+      //     summary: 'Rejected',
+      //     detail: 'You have rejected',
+      //     life: 3000,
+      //   });
+      // },
+    });
+  }
+
+  confirmAlertRemoval(event: Event, id: string) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'Do you want to delete this alert?',
+      icon: 'pi pi-exclamation-triangle',
+      rejectLabel: 'Cancel',
+      acceptLabel: 'Remove',
+      closeOnEscape: true,
+      acceptButtonStyleClass: 'p-button p-button-danger',
+      accept: () => {
+        this.deleteMessage(id);
+      },
+      // reject: () => {
+      //   this.messageService.add({
+      //     severity: 'error',
+      //     summary: 'Rejected',
+      //     detail: 'You have rejected',
+      //     life: 3000,
+      //   });
+      // },
+    });
   }
 
   removeUserFromInvestment(investmentId: number) {
@@ -191,11 +284,32 @@ export class InvestorDetailsComponent {
     this.selectedInvestor.admin = this.investmentForm.value.admin;
     this.selectedInvestor.profit = this.investmentForm.value.profit;
 
-    this.investorService
-      .updateInvestor(this.selectedInvestor)
-      .subscribe((response: boolean) => {
-        console.log(response);
-      });
+    console.log(this.investmentForm.value.approved);
+
+    this.investorService.updateInvestor(this.selectedInvestor).subscribe({
+      next: (response: boolean) => {
+        console.log('RESPONSE', response);
+      },
+      error: (err: any) => {
+        console.log(err);
+      },
+    });
+    this.router.navigate(['/admin']);
+  }
+
+  confirmDeleteInvestor(event: Event) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'Delete ' + this.selectedInvestor?.username + '?',
+      icon: 'pi pi-exclamation-triangle',
+      rejectLabel: 'Cancel',
+      acceptLabel: 'Delete',
+      closeOnEscape: true,
+      acceptButtonStyleClass: 'p-button p-button-danger',
+      accept: () => {
+        this.deleteInvestor();
+      },
+    });
   }
 
   deleteInvestor() {
@@ -220,7 +334,7 @@ export class InvestorDetailsComponent {
     if (this.messageForm.valid && !this.editMode) {
       this.message = this.messageForm.value;
       this.message.userId = Number(this.investor);
-      this.messageService.createMessage(this.message).subscribe({
+      this.userMessageService.createMessage(this.message).subscribe({
         next: (message: Message) => {
           this.messages.push(message);
           console.log(message);
@@ -235,7 +349,7 @@ export class InvestorDetailsComponent {
   }
 
   deleteMessage(id: string) {
-    this.messageService.deleteMessage(id).subscribe({
+    this.userMessageService.deleteMessage(id).subscribe({
       next: () => {
         this.getInvestor();
       },
@@ -250,7 +364,7 @@ export class InvestorDetailsComponent {
     this.message.id = this.selectedMessage.id;
     this.message.userId = Number(this.investor);
     console.log(this.message);
-    this.messageService
+    this.userMessageService
       .updateMessage(this.message.id.toString(), this.message)
       .subscribe({
         next: (message: Message) => {

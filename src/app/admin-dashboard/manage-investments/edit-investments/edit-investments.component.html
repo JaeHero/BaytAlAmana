@@ -1,11 +1,12 @@
-<div
+<!-- <div
   class="grid pt-3 flex"
   style="
     background: linear-gradient(to right, #f8f9fa, #eceef1);
     min-height: 100vh;
     padding: 2rem;
   "
->
+> -->
+<div class="surface-ground min-h-screen p-4 animated-gradient grid flex">
   <!-- Left Column: Investment Details Card -->
   <div class="col-6">
     <form [formGroup]="investmentForm">
@@ -63,6 +64,19 @@
                 (onSelect)="onSelect($event)"
               ></p-calendar>
             </div>
+
+            <label for="funding" class="block text-900 font-medium mb-2">
+              Current Funding</label
+            >
+            <p-inputNumber
+              inputId="funding"
+              mode="currency"
+              currency="USD"
+              locale="en-US"
+              class="mb-3"
+              formControlName="funding"
+            ></p-inputNumber>
+
             <label for="fundingGoal" class="block text-900 font-medium mb-2"
               >Funding Goal</label
             >
@@ -73,17 +87,6 @@
               locale="en-US"
               class="mb-3"
               formControlName="fundingGoal"
-            ></p-inputNumber>
-            <label for="funding" class="block text-900 font-medium mb-2"
-              >Funding</label
-            >
-            <p-inputNumber
-              inputId="funding"
-              mode="currency"
-              currency="USD"
-              locale="en-US"
-              class="mb-3"
-              formControlName="funding"
             ></p-inputNumber>
             <label for="status" class="block text-900 font-medium mb-2"
               >Status</label
@@ -97,12 +100,79 @@
               >
               </p-dropdown>
             </div>
+            <p-fileUpload
+              name="demo[]"
+              (onSelect)="onFileSelect($event)"
+              (onRemove)="onRemove($event)"
+              showUploadButton="false"
+              [multiple]="true"
+              accept="image/*"
+              maxFileSize="10485760"
+              mode="advanced"
+              showCancelButton="false"
+              chooseLabel="Upload Images"
+            >
+              <ng-template #empty>
+                <div>Drag and drop files to here to upload.</div>
+              </ng-template>
+              <ng-template #content>
+                <ul *ngIf="uploadedFiles.length">
+                  <li *ngFor="let file of uploadedFiles">
+                    {{ file.name }} - {{ file.size }} bytes
+                  </li>
+                </ul>
+              </ng-template>
+            </p-fileUpload>
+            <!-- <p-button
+              icon="pi pi-external-link"
+              label="Investment Images"
+              (click)="displayBasic = true"
+            />
+            <p-galleria
+              [value]="images"
+              [(visible)]="displayBasic"
+              [responsiveOptions]="responsiveOptions"
+              [containerStyle]="{ 'max-width': '50%' }"
+              [numVisible]="9"
+              [circular]="true"
+              [fullScreen]="true"
+              [showItemNavigators]="true"
+              [showThumbnails]="true"
+            >
+              <ng-template pTemplate="item" let-item>
+                <img
+                  [src]="item.itemImageSrc"
+                  style="width: 100%; display: block"
+                />
+              </ng-template>
+              <ng-template pTemplate="thumbnail" let-item>
+                <img
+                  [src]="item.thumbnailImageSrc"
+                  style="display: block; height: 60px"
+                />
+              </ng-template>
+            </p-galleria> -->
+
+            <!-- <div *ngFor="let file of investmentImages">
+              {{ file.url }}
+              <iframe
+                [src]="
+                  'https://drive.google.com/file/d/' + file.url + '/preview'
+                "
+                width="640"
+                height="480"
+                frameborder="0"
+                allow="fullscreen"
+              ></iframe>
+              <p>{{ file.title }}</p>
+            </div> -->
+
             <button
               pButton
               pRipple
               label="Save Investment"
               icon="pi pi-save"
-              class="w-full"
+              class="w-full mt-3"
               type="submit"
               (click)="saveInvestment()"
             ></button>
@@ -143,7 +213,7 @@
               <tr>
                 <th>Date</th>
                 <th>Cost</th>
-                <th>Description</th>
+                <th class="wrap-text">Description</th>
                 <th></th>
               </tr>
             </ng-template>
@@ -151,7 +221,7 @@
               <tr [pSelectableRow]="update">
                 <td>{{ update.date }}</td>
                 <td>${{ update.cost }}</td>
-                <td class="flex-wrap">{{ update.description }}</td>
+                <td class="wrap-text">{{ update.description }}</td>
                 <td>
                   <p-button
                     icon="pi pi-trash"
@@ -168,12 +238,9 @@
         </div>
       </p-card>
     </div>
-  </div>
-  <!-- Right Column: Add Updates Card -->
-  <div class="col-6 justify-content-center">
     <form [formGroup]="updateForm">
       <div
-        class="card flex justify-content-center shadow-3 border-round"
+        class="card flex justify-content-center shadow-3 border-round mt-2"
         style="padding: 2rem; background-color: white"
       >
         <p-card
@@ -241,5 +308,19 @@
         </p-card>
       </div>
     </form>
+  </div>
+  <div class="image-grid">
+    @for (file of investmentImages; track file) {
+    <div class="image-card">
+      <iframe
+        [src]="getDrivePreviewUrl(file.url)"
+        width="100%"
+        height="250"
+        frameborder="0"
+        allowfullscreen
+      ></iframe>
+      <p class="image-title">{{ file.title }}</p>
+    </div>
+    }
   </div>
 </div>

@@ -1,106 +1,91 @@
-<div
-  class="grid pt-3"
-  style="
-    background: linear-gradient(to right, #f8f9fa, #eceef1);
-    min-height: 100vh;
-    padding: 2rem;
-  "
->
+<div class="grid surface-ground min-h-screen p-4 animated-gradient">
   <!-- Left Column: Investment Details Card -->
-  <div class="col-6">
-    <div
-      class="card flex justify-content-center shadow-3 border-round"
-      style="padding: 2rem; background-color: white"
+  <div class="col-6 card flex justify-content-center">
+    <p-card
+      header="{{ investment.name }}"
+      subheader="{{ investment.location }}"
+      [style]="{
+        width: '360px',
+        'border-radius': '12px',
+        'box-shadow': '0 4px 12px rgba(0, 0, 0, 0.1)'
+      }"
+      
     >
-      <p-card
-        header="{{ investment.name }}"
-        subheader="{{ investment.location }}"
-        [style]="{
-          width: '360px',
-          'border-radius': '12px',
-          'box-shadow': '0 4px 12px rgba(0, 0, 0, 0.1)'
-        }"
-      >
-        <!-- Card Header with Image -->
-        <ng-template pTemplate="header">
-          <img
-            alt="Investment Image"
-            src="https://picsum.photos/350/350"
-            style="
-              border-radius: 12px;
-              width: 100%;
-              height: 200px;
-              object-fit: cover;
-              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            "
-          />
-        </ng-template>
+      <!-- Card Header with Image -->
+      <ng-template pTemplate="header">
+        <img
+          alt="Investment Image"
+          src="https://picsum.photos/350/350"
+          style="
+            border-radius: 12px;
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          "
+        />
+      </ng-template>
 
-        <!-- Card Content -->
-        <div style="padding: 1rem 0" class="justify-content-center">
-          <h3>Start Date: {{ investment.date }}</h3>
-          <h3>Expected Close Date: {{ investment.expectedCloseDate }}</h3>
-          <h3>
-            Status:
-            <span class="text-primary">{{
-              investment.status === 1
-                ? "Open"
-                : investment.status === 2
-                ? "In-Progress"
-                : investment.status === 3
-                ? "Closed"
-                : "Unknown"
-            }}</span>
-          </h3>
-          <h3>Investor Count: {{ investment.investorCount }}</h3>
-          <h3>Total Initial Funding: {{ investment.funding | currency }}</h3>
-          <h3>Total Expenditures: {{ investment.fundingGoal | currency }}</h3>
-          <p-progressBar [value]="progressValue.toFixed()" />
-        </div>
+      <!-- Card Content -->
+      <div style="padding: 1rem 0" class="justify-content-center">
+        <h3>Start Date: {{ investment.date }}</h3>
+        <h3>Expected Close Date: {{ investment.expectedCloseDate }}</h3>
+        <h3>
+          Status:
+          <span class="text-primary">{{
+            investment.status === 1
+              ? "Open"
+              : investment.status === 2
+              ? "In-Progress"
+              : investment.status === 3
+              ? "Closed"
+              : "Unknown"
+          }}</span>
+        </h3>
+        <h3>Investor Count: {{ investment.investorCount }}</h3>
+        <h3>Total Initial Funding: {{ investment.funding | currency }}</h3>
+        <h3>Total Expenditures: {{ investment.fundingGoal | currency }}</h3>
+        <p-progressBar [value]="progressValue.toFixed()" />
+      </div>
 
-        <!-- Card Footer with Buttons -->
-      </p-card>
-    </div>
+      <!-- Card Footer with Buttons -->
+    </p-card>
   </div>
 
   <!-- Right Column: Notes Card -->
-  <div class="col-6">
-    <div
-      class="card flex justify-content-center shadow-3 border-round"
-      style="padding: 2rem; background-color: white"
+  <!-- Right Column: Notes Card -->
+  <div
+    class="col-6 card"
+    style="
+      background-color: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 1rem;
+    "
+  >
+    <p-table
+      [value]="updates"
+      styleClass="w-full"
+      [scrollable]="true"
+      scrollHeight="400px"
+      selectionMode="single"
+      dataKey="code"
     >
-      <p-table
-        [value]="updates"
-        [scrollable]="true"
-        scrollHeight="400px"
-        selectionMode="single"
-        dataKey="code"
-      >
-        <ng-template pTemplate="header">
-          <tr>
-            <th>Date</th>
-            <th>Cost</th>
-            <th>Description</th>
-            <!-- <th></th> -->
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-update>
-          <tr>
-            <td>{{ update.date }}</td>
-            <td>${{ update.cost }}</td>
-            <td class="flex-wrap">{{ update.description }}</td>
-            <!-- <td>
-              <p-button
-                icon="pi pi-trash"
-                severity="danger"
-                [outlined]="true"
-                styleClass="p-button-rounded p-button-secondary p-button-outlined shadow-1"
-                size="small"
-              ></p-button>
-            </td> -->
-          </tr>
-        </ng-template>
-      </p-table>
-    </div>
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Date</th>
+          <th>Cost</th>
+          <th>Description</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-update>
+        <tr>
+          <td>{{ update.date }}</td>
+          <td>${{ update.cost }}</td>
+          <td>{{ update.description }}</td>
+        </tr>
+      </ng-template>
+    </p-table>
   </div>
 </div>

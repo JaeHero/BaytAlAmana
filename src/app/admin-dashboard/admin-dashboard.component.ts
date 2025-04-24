@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { TabViewModule } from 'primeng/tabview';
 import { ManageInvestmentsComponent } from './manage-investments/manage-investments.component';
 import { ManageMessagingComponent } from './manage-messaging/manage-messaging.component';
-
+import { CardModule } from 'primeng/card';
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
@@ -16,6 +16,7 @@ import { ManageMessagingComponent } from './manage-messaging/manage-messaging.co
     TabViewModule,
     ManageInvestmentsComponent,
     ManageMessagingComponent,
+    CardModule,
   ],
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.css',

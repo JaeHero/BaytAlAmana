@@ -7,7 +7,7 @@ import { enviroment } from '../enviroments/enviroment';
 @Injectable({
   providedIn: 'root',
 })
-export class MessageService {
+export class UserMessageService {
   constructor(private httpClient: HttpClient) {}
 
   createMessage(message: Message): Observable<Message> {

@@ -6,11 +6,20 @@ import { ButtonModule } from 'primeng/button';
 import { Investment } from '../models/investment';
 import { InvestmentService } from '../services/investment.service';
 import { Router } from '@angular/router';
+import { AosDirective } from '../aos.directive';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ImageModule, CarouselModule, TagModule, ButtonModule],
+  imports: [
+    ImageModule,
+    CarouselModule,
+    TagModule,
+    ButtonModule,
+    AosDirective,
+    NgOptimizedImage,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
@@ -42,6 +51,9 @@ export class HomeComponent implements OnInit {
         this.closedInvestment = this.investment.filter(
           (investment) => investment.status === 3
         );
+        console.log('OPEN INVESTMENTS: ', this.openInvestments);
+        console.log('IN PROGRESS INVESTMENTS: ', this.inProgressInvestment);
+        console.log('CLOSED INVESTMENTS: ', this.closedInvestment);
       });
     console.log(this.investment);
 

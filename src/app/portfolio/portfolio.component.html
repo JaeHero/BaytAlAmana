@@ -1,10 +1,7 @@
-<div
-  class="surface-ground px-4 py-5 md:px-6 lg:px-8"
-  style="background: linear-gradient(to bottom right, #f2f2f2, #e6e6e6)"
->
+<div class="surface-ground min-h-screen p-4 animated-gradient">
   <div class="grid">
     <div class="col-12 md:col-6 lg:col-3">
-      <div class="surface-card shadow-2 p-3 border-round">
+      <div class="surface-card shadow-2 p-3 border-round" appVanillaTilt>
         <div class="flex justify-content-between mb-3">
           <div>
             <span class="block text-500 font-medium mb-3"
@@ -24,11 +21,13 @@
       </div>
     </div>
     <div class="col-12 md:col-6 lg:col-3">
-      <div class="surface-card shadow-2 p-3 border-round">
+      <div class="surface-card shadow-2 p-3 border-round" appVanillaTilt>
         <div class="flex justify-content-between mb-3">
           <div>
             <span class="block text-500 font-medium mb-3">Profit</span>
-            <div class="text-900 font-medium text-xl">$6220</div>
+            <div class="text-900 font-medium text-xl">
+              {{ 6220 | currency }}
+            </div>
           </div>
           <div
             class="flex align-items-center justify-content-center bg-orange-100 border-round"
@@ -42,13 +41,15 @@
       </div>
     </div>
     <div class="col-12 md:col-6 lg:col-3">
-      <div class="surface-card shadow-2 p-3 border-round">
+      <div class="surface-card shadow-2 p-3 border-round" appVanillaTilt>
         <div class="flex justify-content-between mb-3">
           <div>
             <span class="block text-500 font-medium mb-3"
               >Available Investment</span
             >
-            <div class="text-900 font-medium text-xl">$18,240</div>
+            <div class="text-900 font-medium text-xl">
+              {{ 18240 | currency }}
+            </div>
           </div>
           <div
             class="flex align-items-center justify-content-center bg-cyan-100 border-round"
@@ -58,11 +59,11 @@
           </div>
         </div>
         <span class="text-500">Out of </span>
-        <span class="text-primary-500">$42,000</span>
+        <span class="text-primary-500">{{ 42000 | currency }}</span>
       </div>
     </div>
     <div class="col-12 md:col-6 lg:col-3">
-      <div class="surface-card shadow-2 p-3 border-round">
+      <div class="surface-card shadow-2 p-3 border-round" appVanillaTilt>
         <div class="flex justify-content-between mb-3">
           <div>
             <span class="block text-500 font-medium mb-3">Alerts</span>
@@ -81,175 +82,132 @@
     </div>
   </div>
   <p-messages [(value)]="messages" [enableService]="false"></p-messages>
-</div>
 
-<div class="flex-row">
-  <div
-    class="surface-ground min-h-screen p-4"
-    style="background: linear-gradient(to bottom right, #f2f2f2, #e6e6e6)"
-  >
-    <div class="mt-6">
-      <div
-        class="card max-w-full p-4"
-        style="
-          background-color: white;
-          border-radius: 16px;
-          box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
-        "
-      >
-        <h2 class="text-center text-primary mb-4">My Investments</h2>
-
-        <p-carousel
-          [value]="investment"
-          [numVisible]="3"
-          [numScroll]="1"
-          [responsiveOptions]="responsiveOptions"
-        >
-          <ng-template let-investment pTemplate="item">
-            <div
-              class="border-1 surface-border border-round m-2 p-4"
-              style="
-                width: 250px;
-                height: 350px;
-                background-color: white;
-                border-radius: 16px;
-                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-              "
-            >
-              <div class="mb-3">
-                <div
-                  class="relative mx-auto"
-                  style="width: 100%; height: 150px"
-                >
-                  <img
-                    src="https://picsum.photos/200/200"
-                    [alt]="investment.name"
-                    class="w-full h-full border-round"
-                    style="
-                      object-fit: cover;
-                      border-radius: 12px;
-                      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-                    "
-                  />
-                  <p-tag
-                    [value]="getStatusLabel(investment.status)"
-                    class="absolute"
-                    [ngStyle]="{
-                      'left.px': 5,
-                      'top.px': 5,
-                      'background-color': '#007bff',
-                      color: 'white'
-                    }"
-                  />
-                </div>
-              </div>
-              <div class="mb-3 font-medium text-secondary text-center">
-                {{ investment.name }}
-              </div>
-              <div class="flex justify-content-between align-items-center">
-                Close Date:
-                <div class="mt-0 font-semibold text-xl text-primary">
-                  {{ investment.expectedCloseDate }}
-                </div>
-              </div>
-              <div class="flex justify-content-end mt-2">
-                <p-button
-                  icon="pi pi-arrow-up-right-and-arrow-down-left-from-center"
-                  styleClass="ml-2 p-button-rounded p-button-primary shadow-1"
-                  (click)="goToCurrentDetails(investment)"
-                ></p-button>
-              </div>
-            </div>
-          </ng-template>
-        </p-carousel>
-      </div>
-    </div>
-    <!-- Carousel Content Section -->
+  <div class="flex-row">
     <div class="mt-6">
       <!-- Card Section with Shadow and Rounded Borders -->
       <div
-        class="card max-w-full p-4"
+        class="carousel-container max-w-full p-4"
         style="
-          background-color: white;
+          background-color: rgba(255, 255, 255, 0.2); /* 20% white */
+          backdrop-filter: blur(10px); /* 'Glass' effect */
           border-radius: 16px;
-          box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         "
       >
-        <h2 class="text-center text-primary mb-4">Saved Investments</h2>
+        <h2 class="text-center text-primary mb-4">My Investments</h2>
         <!-- Section Title -->
 
         <p-carousel
           [value]="investment"
           [numVisible]="3"
           [numScroll]="1"
+          autoplayInterval="3000"
+          [circular]="true"
           [responsiveOptions]="responsiveOptions"
         >
           <ng-template let-investment pTemplate="item">
-            <!-- Card Container with Padding and Shadow -->
-            <div
-              class="border-1 surface-border border-round m-2 p-4"
-              style="
-                width: 250px;
-                height: 350px;
-                background-color: white;
-                border-radius: 16px;
-                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-              "
-            >
-              <div class="mb-3">
-                <!-- Image with Shadow -->
-                <div
-                  class="relative mx-auto"
-                  style="width: 100%; height: 150px"
-                >
-                  <img
-                    src="https://picsum.photos/200/200"
-                    [alt]="investment.name"
-                    class="w-full h-full border-round"
-                    style="
-                      object-fit: cover;
-                      border-radius: 12px;
-                      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-                    "
-                  />
-                  <p-tag
-                    [value]="getStatusLabel(investment.status)"
-                    class="absolute"
-                    [ngStyle]="{
-                      'left.px': 5,
-                      'top.px': 5,
-                      'background-color': '#007bff',
-                      color: 'white'
-                    }"
-                  />
-                </div>
+            @if (investment.status === 1) {
+            <div class="carousel-card">
+              <div class="card-image">
+                <img
+                  src="https://picsum.photos/200/200"
+                  [alt]="investment.name"
+                  class="card-img"
+                />
+                <p-tag
+                  [value]="getStatusLabel(investment.status)"
+                  class="card-tag"
+                ></p-tag>
               </div>
 
-              <div class="mb-3 font-medium text-secondary text-center">
+              <div class="card-title">
                 {{ investment.name }}
               </div>
 
-              <div class="flex justify-content-between align-items-center">
+              <div class="card-stats">
                 Funding Goal Reached:
-                <div class="mt-0 font-semibold text-xl text-primary">25%</div>
+                <span class="card-value">
+                  {{
+                    (investment.funding && investment.fundingGoal
+                      ? (
+                          (investment.funding / investment.fundingGoal) *
+                          100
+                        ).toFixed()
+                      : 0) + "%"
+                  }}
+                </span>
               </div>
-              <div class="flex justify-content-between mt-2">
-                <p-button
-                  icon="pi pi-heart"
-                  severity="secondary"
-                  [outlined]="true"
-                  styleClass="p-button-rounded p-button-secondary p-button-outlined shadow-1"
-                ></p-button>
+
+              <div class="card-actions">
                 <p-button
                   icon="pi pi-arrow-up-right-and-arrow-down-left-from-center"
-                  styleClass="ml-2 p-button-rounded p-button-primary shadow-1"
+                  styleClass="p-button-rounded p-button-primary ml-2"
                   (click)="goToDetails(investment)"
                 ></p-button>
               </div>
             </div>
+            } @else if (investment.status === 2) {
+            <div class="carousel-card">
+              <div class="card-image">
+                <img
+                  src="https://picsum.photos/200/200"
+                  [alt]="investment.name"
+                  class="card-img"
+                />
+                <p-tag
+                  [value]="getStatusLabel(investment.status)"
+                  class="card-tag"
+                ></p-tag>
+              </div>
+              <div class="card-title">
+                {{ investment.name }}
+              </div>
+
+              <div class="card-stats">
+                Close Date:
+                <span class="card-value">{{
+                  investment.expectedCloseDate
+                }}</span>
+              </div>
+              <div class="card-actions">
+                <p-button
+                  icon="pi pi-arrow-up-right-and-arrow-down-left-from-center"
+                  styleClass="p-button-rounded p-button-primary ml-2"
+                  (click)="goToCurrentDetails(investment)"
+                ></p-button>
+              </div>
+            </div>
+            } @else if (investment.status===3) {
+            <div class="carousel-card">
+              <div class="card-image">
+                <img
+                  src="https://picsum.photos/200/200"
+                  [alt]="investment.name"
+                  class="card-img"
+                />
+                <p-tag
+                  [value]="getStatusLabel(investment.status)"
+                  class="card-tag"
+                ></p-tag>
+              </div>
+              <div class="card-title">
+                {{ investment.name }}
+              </div>
+              <div class="card-stats">
+                Duration:
+                <span class="card-value">6 Months</span>
+              </div>
+              <div class="card-stats">
+                ROI:
+                <span class="card-value roi-value">33.3%</span>
+              </div>
+            </div>
+            }
           </ng-template>
         </p-carousel>
       </div>
     </div>
+    <!-- Carousel Content Section -->
   </div>
 </div>

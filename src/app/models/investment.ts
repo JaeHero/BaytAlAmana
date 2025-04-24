@@ -1,3 +1,4 @@
+import { investmentImage } from './investment-image';
 import { Message } from './message';
 import { Update } from './update';
 
@@ -12,4 +13,5 @@ export interface Investment {
   expectedCloseDate: Date;
   investorCount: number;
   updates: Update[];
+  images: investmentImage[];
 }

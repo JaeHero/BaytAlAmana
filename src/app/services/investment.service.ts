@@ -65,4 +65,11 @@ export class InvestmentService {
       enviroment.apiUrl + `/user/${investorId}/available-investments`
     );
   }
+
+  uploadImages(formData: FormData, investmentId: number): Observable<string[]> {
+    return this.httpClient.post<string[]>(
+      enviroment.apiUrl + `/upload-images/${investmentId}`,
+      formData
+    );
+  }
 }

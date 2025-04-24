@@ -9,7 +9,7 @@ import { Investment } from '../models/investment';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { TagModule } from 'primeng/tag';
 import { NgStyle } from '@angular/common';
-
+import { VanillaTiltDirective } from '../vanilla-tilt.directive';
 @Component({
   selector: 'app-investment-details',
   standalone: true,
@@ -22,6 +22,7 @@ import { NgStyle } from '@angular/common';
     TagModule,
     NgStyle,
     RouterLink,
+    VanillaTiltDirective,
   ],
   templateUrl: './investment-details.component.html',
   styleUrl: './investment-details.component.css',

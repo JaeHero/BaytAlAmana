@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { CardModule } from 'primeng/card';
 import { InputTextModule } from 'primeng/inputtext';
 import { Router, RouterLink } from '@angular/router';
-import { InputMask } from 'primeng/inputmask';
+import { InputMaskModule } from 'primeng/inputmask';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { MessageModule } from 'primeng/message';
@@ -27,12 +27,12 @@ import { Investor } from '../models/investor';
     CheckboxModule,
     CardModule,
     InputTextModule,
-    RouterLink,
     InputNumberModule,
     ReactiveFormsModule,
     FormsModule,
     InputSwitchModule,
     MessageModule,
+    InputMaskModule,
   ],
   templateUrl: './account-creation.component.html',
   styleUrl: './account-creation.component.css',
@@ -40,9 +40,8 @@ import { Investor } from '../models/investor';
 export class AccountCreationComponent implements OnInit {
   accountCreationForm!: FormGroup;
   investor: Investor = {} as Investor;
-
   constructor(
-    private router: Router,
+    @Inject(Router) private router: Router,
     private formBuilder: FormBuilder,
     private investorService: InvestorService
   ) {}
@@ -53,7 +52,7 @@ export class AccountCreationComponent implements OnInit {
       email: ['', Validators.required],
       password: ['', Validators.required],
       phone: ['', Validators.required],
-      public: [false],
+      isPublic: [false],
       intendedInvestment: ['', Validators.required],
     });
   }
@@ -65,6 +64,7 @@ export class AccountCreationComponent implements OnInit {
   createAccount() {
     if (this.accountCreationForm.valid) {
       this.investor = this.accountCreationForm.value;
+      this.investor.createdAt = new Date();
       this.investorService.createUser(this.investor).subscribe(
         (investor) => {
           console.log(investor);

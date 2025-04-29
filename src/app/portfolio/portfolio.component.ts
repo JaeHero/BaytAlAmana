@@ -10,6 +10,7 @@ import { MessagesModule } from 'primeng/messages';
 import { Message } from 'primeng/api';
 import { VanillaTiltDirective } from '../vanilla-tilt.directive';
 import { CurrencyPipe } from '@angular/common';
+import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-portfolio',
   standalone: true,
@@ -30,16 +31,30 @@ export class PortfolioComponent {
   messages: Message[] = [];
 
   responsiveOptions: any[] | undefined;
+  constructor(
+    private router: Router,
+    private investmentService: InvestmentService,
+    private sanitizer: DomSanitizer
+  ) {}
 
   ngOnInit() {
     //  this.investmentService.getInvestments().then((products) => {
     //    this.products = products;
     //  });
-    this.investmentService
-      .getInvestments()
-      .subscribe((investments: Investment[]) => {
-        this.investment = investments;
+    this.investmentService.getInvestments().subscribe((raw) => {
+      this.investment = raw.map((inv) => {
+        if (inv.images?.length) {
+          const fileId = inv.images[0].url;
+          const previewUrl = `https://drive.google.com/file/d/${fileId}/preview`;
+          return {
+            ...inv,
+            safeIframeUrl:
+              this.sanitizer.bypassSecurityTrustResourceUrl(previewUrl),
+          };
+        }
+        return inv;
       });
+    });
     console.log(this.investment);
     this.responsiveOptions = [
       {
@@ -67,10 +82,6 @@ export class PortfolioComponent {
     ];
   }
 
-  constructor(
-    private router: Router,
-    private investmentService: InvestmentService
-  ) {}
   goToDetails(investment: Investment) {
     // Assuming investment.id is the unique identifier for the investment
     this.router.navigate(['/investment-details', investment.id]);

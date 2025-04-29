@@ -186,16 +186,14 @@
             <div class="mb-3">
               <!-- Image with Shadow -->
               <div class="relative mx-auto" style="width: 100%; height: 150px">
-                <img
-                  src="https://picsum.photos/200/200"
-                  [alt]="investment.name"
-                  class="w-full h-full border-round"
-                  style="
-                    object-fit: cover;
-                    border-radius: 12px;
-                    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-                  "
-                />
+                <iframe
+                  *ngIf="investment.safeIframeUrl"
+                  [src]="investment.safeIframeUrl"
+                  width="100%"
+                  height="100%"
+                  frameborder="0"
+                  loading="lazy"
+                ></iframe>
                 <p-tag
                   [value]="getStatusLabel(investment.status)"
                   class="absolute"
@@ -293,16 +291,14 @@
         >
           <div class="mb-3">
             <div class="relative mx-auto" style="width: 100%; height: 150px">
-              <img
-                src="https://picsum.photos/200/200"
-                [alt]="investment.name"
-                class="w-full h-full border-round"
-                style="
-                  object-fit: cover;
-                  border-radius: 12px;
-                  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-                "
-              />
+              <iframe
+                *ngIf="investment.safeIframeUrl"
+                [src]="investment.safeIframeUrl"
+                width="100%"
+                height="100%"
+                frameborder="0"
+                loading="lazy"
+              ></iframe>
               <p-tag
                 [value]="getStatusLabel(investment.status)"
                 class="absolute"
@@ -379,16 +375,14 @@
         >
           <div class="mb-3">
             <div class="relative mx-auto" style="width: 100%; height: 150px">
-              <img
-                src="https://picsum.photos/200/200"
-                [alt]="investment.name"
-                class="w-full h-full border-round"
-                style="
-                  object-fit: cover;
-                  border-radius: 12px;
-                  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-                "
-              />
+              <iframe
+                *ngIf="investment.safeIframeUrl"
+                [src]="investment.safeIframeUrl"
+                width="100%"
+                height="100%"
+                frameborder="0"
+                loading="lazy"
+              ></iframe>
               <p-tag
                 [value]="getStatusLabel(investment.status)"
                 class="absolute"

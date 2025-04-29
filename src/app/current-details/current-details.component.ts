@@ -13,6 +13,10 @@ import { TableModule } from 'primeng/table';
 import { Update } from '../models/update';
 import { UpdateService } from '../services/update.service';
 import { VanillaTiltDirective } from '../vanilla-tilt.directive';
+import { investmentImage } from '../models/investment-image';
+import { DomSanitizer } from '@angular/platform-browser';
+import { map, switchMap } from 'rxjs';
+import { GalleriaModule } from 'primeng/galleria';
 
 interface Status {
   label: string;
@@ -34,6 +38,7 @@ interface Status {
     TableModule,
     CurrencyPipe,
     VanillaTiltDirective,
+    GalleriaModule,
   ],
   templateUrl: './current-details.component.html',
   styleUrl: './current-details.component.css',
@@ -41,6 +46,7 @@ interface Status {
 export class CurrentDetailsComponent {
   // Initialize with an empty object (use Partial to allow partial initialization if some properties are missing)
   investment: Investment = {} as Investment;
+  images: investmentImage[] = [];
   progressValue = 0;
   updates: Update[] = [];
   statuses: Status[] = [
@@ -53,34 +59,69 @@ export class CurrentDetailsComponent {
     private investmentService: InvestmentService,
     private router: Router,
     private route: ActivatedRoute, // Inject ActivatedRoute to get route parameters
-    private updateService: UpdateService
+    private updateService: UpdateService,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit(): void {
-    // Get the 'id' from the route parameter
-    const investmentId = this.route.snapshot.paramMap.get('id');
-
-    // Fetch investment details using the ID
-    if (investmentId) {
-      this.investmentService.getInvestmentById(investmentId).subscribe({
-        next: (investment: Investment) => {
-          this.investment = investment;
-
-          // Calculate the progress value if funding and fundingGoal are available
-          if (this.investment.funding && this.investment.fundingGoal) {
-            this.progressValue =
-              (this.investment.funding / this.investment.fundingGoal) * 100;
+    this.route.paramMap
+      .pipe(
+        // 1. grab the "id" param and convert to a number
+        map((params) => {
+          const id = Number(params.get('id'));
+          if (isNaN(id) || id <= 0) {
+            throw new Error('Invalid investment ID');
           }
-          this.updates = investment.updates;
+          return id;
+        }),
+        // 2. switch to the HTTP call
+        switchMap((id) =>
+          this.investmentService.getInvestmentById(id.toString())
+        )
+      )
+      .subscribe({
+        next: (inv: Investment) => {
+          this.investment = inv;
+
+          // 3. sanitize each image URL
+          this.images = (inv.images ?? []).map((img) => {
+            const previewUrl = `https://drive.google.com/file/d/${img.url}/preview`;
+            return {
+              ...img,
+              safeIframeUrl:
+                this.sanitizer.bypassSecurityTrustResourceUrl(previewUrl),
+            };
+          });
+          console.log(this.images);
+          this.updates = inv.updates;
+
+          // 4. compute progress as a number (progressValue is a number)
+          if (inv.funding && inv.fundingGoal) {
+            this.progressValue = (inv.funding / inv.fundingGoal) * 100;
+          }
         },
-        error: (error) => {
-          console.error('Error fetching investment:', error);
+        error: (err) => {
+          console.error('Error loading investment details:', err);
+          // you might want to redirect or show a toast here
         },
       });
-    }
   }
   goToContact() {
     // Assuming investment.id is the unique identifier for the investment
     this.router.navigate(['/contact']);
   }
+  responsiveOptions: any[] = [
+    {
+      breakpoint: '991px',
+      numVisible: 4,
+    },
+    {
+      breakpoint: '767px',
+      numVisible: 3,
+    },
+    {
+      breakpoint: '575px',
+      numVisible: 1,
+    },
+  ];
 }

@@ -32,6 +32,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Investor } from '../models/investor';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-investor-details',
@@ -83,7 +84,8 @@ export class InvestorDetailsComponent {
     private messageService: MessageService,
     private userMessageService: UserMessageService,
     private confirmationService: ConfirmationService,
-    @Inject(ActivatedRoute) private route: ActivatedRoute
+    @Inject(ActivatedRoute) private route: ActivatedRoute,
+    private sanitizer: DomSanitizer
   ) {}
   ngOnInit() {
     this.investor = this.route.snapshot.paramMap.get('id');
@@ -149,8 +151,19 @@ export class InvestorDetailsComponent {
   getInvestorInvestments() {
     this.investmentService
       .getInvestmentsByInvestorId(this.investor)
-      .subscribe((investments: Investment[]) => {
-        this.investment = investments;
+      .subscribe((raw) => {
+        this.investment = raw.map((inv) => {
+          if (inv.images?.length) {
+            const fileId = inv.images[0].url;
+            const previewUrl = `https://drive.google.com/file/d/${fileId}/preview`;
+            return {
+              ...inv,
+              safeIframeUrl:
+                this.sanitizer.bypassSecurityTrustResourceUrl(previewUrl),
+            };
+          }
+          return inv;
+        });
       });
   }
 
@@ -171,8 +184,19 @@ export class InvestorDetailsComponent {
   getAvailableInvestments() {
     this.investmentService
       .getAvailableInvestments(this.investor)
-      .subscribe((investments: Investment[]) => {
-        this.availableInvestments = investments;
+      .subscribe((raw) => {
+        this.availableInvestments = raw.map((inv) => {
+          if (inv.images?.length) {
+            const fileId = inv.images[0].url;
+            const previewUrl = `https://drive.google.com/file/d/${fileId}/preview`;
+            return {
+              ...inv,
+              safeIframeUrl:
+                this.sanitizer.bypassSecurityTrustResourceUrl(previewUrl),
+            };
+          }
+          return inv;
+        });
       });
   }
 

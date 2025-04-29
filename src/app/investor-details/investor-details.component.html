@@ -220,11 +220,14 @@
             <div class="mb-3">
               <!-- Image with Shadow -->
               <div class="card-image">
-                <img
-                  src="https://picsum.photos/200/200"
-                  [alt]="investment.name"
-                  class="card-img"
-                />
+                <iframe
+                  *ngIf="investment.safeIframeUrl"
+                  [src]="investment.safeIframeUrl"
+                  width="100%"
+                  height="100%"
+                  frameborder="0"
+                  loading="lazy"
+                ></iframe>
                 <p-tag
                   [value]="getStatusLabel(investment.status)"
                   class="card-tag"
@@ -289,11 +292,14 @@
           <div class="carousel-card">
             <div class="mb-3">
               <div class="card-image">
-                <img
-                  src="https://picsum.photos/200/200"
-                  [alt]="investment.name"
-                  class="card-img"
-                />
+                <iframe
+                  *ngIf="investment.safeIframeUrl"
+                  [src]="investment.safeIframeUrl"
+                  width="100%"
+                  height="100%"
+                  frameborder="0"
+                  loading="lazy"
+                ></iframe>
                 <p-tag
                   [value]="getStatusLabel(investment.status)"
                   class="card-tag"

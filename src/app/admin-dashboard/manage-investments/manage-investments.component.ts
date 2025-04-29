@@ -24,6 +24,7 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { HttpClient } from '@angular/common/http';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { DomSanitizer } from '@angular/platform-browser';
 
 interface Status {
   label: string;
@@ -79,7 +80,8 @@ export class ManageInvestmentsComponent implements OnInit {
     private investmentService: InvestmentService,
     private router: Router,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit() {
@@ -157,20 +159,29 @@ export class ManageInvestmentsComponent implements OnInit {
   }
 
   getInvestments() {
-    this.investmentService
-      .getInvestments()
-      .subscribe((investments: Investment[]) => {
-        this.investment = investments;
-        this.openInvestments = this.investment.filter(
-          (investment) => investment.status === 1
-        );
-        this.inProgressInvestments = this.investment.filter(
-          (investment) => investment.status === 2
-        );
-        this.closedInvestments = this.investment.filter(
-          (investment) => investment.status === 3
-        );
+    this.investmentService.getInvestments().subscribe((raw) => {
+      this.investment = raw.map((inv) => {
+        if (inv.images?.length) {
+          const fileId = inv.images[0].url;
+          const previewUrl = `https://drive.google.com/file/d/${fileId}/preview`;
+          return {
+            ...inv,
+            safeIframeUrl:
+              this.sanitizer.bypassSecurityTrustResourceUrl(previewUrl),
+          };
+        }
+        return inv;
       });
+      this.openInvestments = this.investment.filter(
+        (investment) => investment.status === 1
+      );
+      this.inProgressInvestments = this.investment.filter(
+        (investment) => investment.status === 2
+      );
+      this.closedInvestments = this.investment.filter(
+        (investment) => investment.status === 3
+      );
+    });
   }
 
   confirmDelete(event: Event, id: string) {

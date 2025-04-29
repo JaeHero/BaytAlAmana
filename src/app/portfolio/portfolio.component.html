@@ -110,11 +110,14 @@
             @if (investment.status === 1) {
             <div class="carousel-card">
               <div class="card-image">
-                <img
-                  src="https://picsum.photos/200/200"
-                  [alt]="investment.name"
-                  class="card-img"
-                />
+                <iframe
+                  *ngIf="investment.safeIframeUrl"
+                  [src]="investment.safeIframeUrl"
+                  width="100%"
+                  height="100%"
+                  frameborder="0"
+                  loading="lazy"
+                ></iframe>
                 <p-tag
                   [value]="getStatusLabel(investment.status)"
                   class="card-tag"
@@ -150,11 +153,14 @@
             } @else if (investment.status === 2) {
             <div class="carousel-card">
               <div class="card-image">
-                <img
-                  src="https://picsum.photos/200/200"
-                  [alt]="investment.name"
-                  class="card-img"
-                />
+                <iframe
+                  *ngIf="investment.safeIframeUrl"
+                  [src]="investment.safeIframeUrl"
+                  width="100%"
+                  height="100%"
+                  frameborder="0"
+                  loading="lazy"
+                ></iframe>
                 <p-tag
                   [value]="getStatusLabel(investment.status)"
                   class="card-tag"
@@ -181,11 +187,14 @@
             } @else if (investment.status===3) {
             <div class="carousel-card">
               <div class="card-image">
-                <img
-                  src="https://picsum.photos/200/200"
-                  [alt]="investment.name"
-                  class="card-img"
-                />
+                <iframe
+                  *ngIf="investment.safeIframeUrl"
+                  [src]="investment.safeIframeUrl"
+                  width="100%"
+                  height="100%"
+                  frameborder="0"
+                  loading="lazy"
+                ></iframe>
                 <p-tag
                   [value]="getStatusLabel(investment.status)"
                   class="card-tag"

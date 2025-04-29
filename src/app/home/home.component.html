@@ -39,18 +39,20 @@
         [value]="openInvestments"
         [numVisible]="3"
         [numScroll]="1"
-        autoplayInterval="3000"
         [circular]="true"
         [responsiveOptions]="responsiveOptions"
       >
         <ng-template let-investment pTemplate="item">
           <div class="carousel-card">
             <div class="card-image">
-              <img
-                src="https://picsum.photos/200/200"
-                [alt]="investment.name"
-                class="card-img"
-              />
+              <iframe
+                *ngIf="investment.safeIframeUrl"
+                [src]="investment.safeIframeUrl"
+                width="100%"
+                height="100%"
+                frameborder="0"
+                loading="lazy"
+              ></iframe>
               <p-tag
                 [value]="getStatusLabel(investment.status)"
                 class="card-tag"
@@ -110,18 +112,20 @@
         [value]="inProgressInvestment"
         [numVisible]="3"
         [numScroll]="1"
-        autoplayInterval="3000"
         [circular]="true"
         [responsiveOptions]="responsiveOptions"
       >
         <ng-template let-investment pTemplate="item">
           <div class="carousel-card">
             <div class="card-image">
-              <img
-                src="https://picsum.photos/200/200"
-                [alt]="investment.name"
-                class="card-img"
-              />
+              <iframe
+                *ngIf="investment.safeIframeUrl"
+                [src]="investment.safeIframeUrl"
+                width="100%"
+                height="100%"
+                frameborder="0"
+                loading="lazy"
+              ></iframe>
               <p-tag
                 [value]="getStatusLabel(investment.status)"
                 class="card-tag"
@@ -155,18 +159,19 @@
         [value]="closedInvestment"
         [numVisible]="3"
         [numScroll]="1"
-        autoplayInterval="3000"
         [circular]="true"
         [responsiveOptions]="responsiveOptions"
       >
         <ng-template let-investment pTemplate="item">
           <div class="carousel-card">
             <div class="card-image">
-              <img
-                src="https://picsum.photos/200/200"
-                [alt]="investment.name"
-                class="card-img"
-              />
+              <iframe
+                *ngIf="investment.safeIframeUrl"
+                [src]="investment.safeIframeUrl"
+                width="100%"
+                height="100%"
+                loading="lazy"
+              ></iframe>
               <p-tag
                 [value]="getStatusLabel(investment.status)"
                 class="card-tag"

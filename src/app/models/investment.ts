@@ -14,4 +14,5 @@ export interface Investment {
   investorCount: number;
   updates: Update[];
   images: investmentImage[];
+  thumbnail: String;
 }

@@ -26,6 +26,7 @@
                 <p-inputSwitch
                   formControlName="approved"
                   styleClass="mr-2"
+                  
                 ></p-inputSwitch>
                 <label for="approved" class="text-900">Approved</label>
               </div>
@@ -101,12 +102,11 @@
           </div>
         </div>
         <div>
-          <form [formGroup]="messageForm">
+          <form [formGroup]="messageForm" >
             <div class="col-12 justify-content-center">
               <p-inputGroup>
                 <p-inputGroupAddon> Date </p-inputGroupAddon>
                 <p-calendar
-                  [(ngModel)]="date"
                   [iconDisplay]="'input'"
                   [showIcon]="true"
                   inputId="updateDate"

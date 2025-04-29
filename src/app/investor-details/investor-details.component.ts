@@ -85,6 +85,7 @@ export class InvestorDetailsComponent {
     private confirmationService: ConfirmationService,
     @Inject(ActivatedRoute) private route: ActivatedRoute
   ) {}
+
   ngOnInit() {
     this.investor = this.route.snapshot.paramMap.get('id');
     console.log(this.investor);
@@ -138,10 +139,10 @@ export class InvestorDetailsComponent {
         // Initialize form after we have the investor data
         console.log(investor);
         this.investmentForm = this.formBuilder.group({
-          approved: [this.selectedInvestor.approved],
-          public: [this.selectedInvestor.public],
-          admin: [this.selectedInvestor.admin],
-          profit: [this.selectedInvestor.profit],
+          approved: [this.selectedInvestor.approved ?? false, Validators.required],
+          public: [this.selectedInvestor.public ?? false, Validators.required],
+          admin: [this.selectedInvestor.admin ?? false, Validators.required],
+          profit: [this.selectedInvestor.profit ?? 0, Validators.required],
         });
       });
   }
@@ -158,15 +159,6 @@ export class InvestorDetailsComponent {
     // Assuming investment.id is the unique identifier for the investment
     this.router.navigate(['/investment-details', investment.id]);
   }
-
-  // addUsertoInvestment(investmentId: number) {
-  //   this.investorService
-  //     .addUsertoInvestment(this.investor, investmentId)
-  //     .subscribe((response: boolean) => {
-  //       console.log(response);
-  //       this.getInvestorInvestments();
-  //     });
-  // }
 
   getAvailableInvestments() {
     this.investmentService
@@ -201,20 +193,10 @@ export class InvestorDetailsComponent {
           this.getAvailableInvestments();
         },
         error: (error: any) => {
-          console.error('Error dding user to investment', error);
+          console.error('Error adding user to investment', error);
         },
       });
   }
-
-  // addUserToInvestment(investmentId: number) {
-  //   this.investorService
-  //     .addUsertoInvestment(this.investor, investmentId)
-  //     .subscribe((response: boolean) => {
-  //       console.log(response);
-  //       this.getInvestorInvestments();
-  //       this.getAvailableInvestments();
-  //     });
-  // }
 
   confirmUserRemoval(event: Event, id: number) {
     this.confirmationService.confirm({
@@ -234,14 +216,6 @@ export class InvestorDetailsComponent {
         });
         this.removeUserFromInvestment(id);
       },
-      // reject: () => {
-      //   this.messageService.add({
-      //     severity: 'error',
-      //     summary: 'Rejected',
-      //     detail: 'You have rejected',
-      //     life: 3000,
-      //   });
-      // },
     });
   }
 
@@ -257,14 +231,6 @@ export class InvestorDetailsComponent {
       accept: () => {
         this.deleteMessage(id);
       },
-      // reject: () => {
-      //   this.messageService.add({
-      //     severity: 'error',
-      //     summary: 'Rejected',
-      //     detail: 'You have rejected',
-      //     life: 3000,
-      //   });
-      // },
     });
   }
 

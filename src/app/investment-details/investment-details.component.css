@@ -145,3 +145,10 @@
   gap: 0.5rem;
   margin-top: 0.5rem;
 }
+.w-full {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+

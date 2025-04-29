@@ -63,7 +63,7 @@
             {{ investor.username }}
           </div>
           <div class="card-stats">
-            {{ "Since: " + investor.createdAt }}
+            {{ "Since: " + (investor.creationDate | date: 'shortDate' : 'UTC') }}
           </div>
         </div>
       </div>

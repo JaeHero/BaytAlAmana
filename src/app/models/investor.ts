@@ -2,6 +2,7 @@ import { Investment } from './investment';
 import { Message } from './message';
 
 export interface Investor {
+  creationDate: string | Date;
   id: number;
   username: string;
   email: string;

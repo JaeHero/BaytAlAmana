@@ -8,6 +8,7 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { MessageModule } from 'primeng/message';
+import { TooltipModule } from 'primeng/tooltip';
 
 import {
   ReactiveFormsModule,
@@ -33,6 +34,7 @@ import { Investor } from '../models/investor';
     InputSwitchModule,
     MessageModule,
     InputMaskModule,
+    TooltipModule,
   ],
   templateUrl: './account-creation.component.html',
   styleUrl: './account-creation.component.css',

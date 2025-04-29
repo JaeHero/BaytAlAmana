@@ -8,6 +8,7 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { AvatarModule } from 'primeng/avatar';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { TooltipModule } from 'primeng/tooltip';
 @Component({
   selector: 'app-profile',
   standalone: true,
@@ -21,6 +22,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
     AvatarModule,
     InputMaskModule,
     InputNumberModule,
+    TooltipModule,
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css',

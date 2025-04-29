@@ -21,6 +21,7 @@
                 <th>Profit</th>
                 <th>Intended Investment</th>
                 <th>Total Investment</th>
+                <th>Creation Date</th>
                 <th>Is Approved</th>
                 <th>Is Public</th>
                 <th>Is admin</th>
@@ -35,6 +36,7 @@
                 <td>${{ investor.profit }}</td>
                 <td>${{ investor.intendedInvestment }}</td>
                 <td>${{ investor.investmentAmount ?? 0 }}</td>
+                <td>{{ investor.creationDate}}</td>
                 <td>{{ investor.approved ? "Approved" : "Not Approved" }}</td>
                 <td>{{ investor.public ? "Public" : "Private" }}</td>
                 <td>{{ investor.admin }}</td>

@@ -25,33 +25,37 @@
         </div>
         <form [formGroup]="accountCreationForm">
           <div>
-            <label for="email1" class="block text-900 font-medium mb-2"
+            <label for="username1" class="block text-900 font-medium mb-2"
               >Username</label
             >
             <input
-              id="email1"
+              id="username1"
               type="text"
               placeholder="Username"
               pInputText
               class="w-full mb-3"
               formControlName="username"
               required
+              pTooltip="Enter your username"
+              tooltipPosition="top"
             />
             <!-- <p-message severity="error" variant="simple" size="small"
           >Username is required</p-message
         > -->
 
             <div>
-              <label for="password1" class="block text-900 font-medium mb-2"
+              <label for="email1" class="block text-900 font-medium mb-2"
                 >Email</label
               >
               <input
-                id="password1"
+                id="email1"
                 type="email"
                 placeholder="Email"
                 pInputText
                 class="w-full mb-3"
                 formControlName="email"
+                pTooltip="Enter a valid email"
+                tooltipPosition="top"
               />
 
               <label for="password1" class="block text-900 font-medium mb-2"
@@ -64,6 +68,8 @@
                 pInputText
                 class="w-full mb-3"
                 formControlName="password"
+                pTooltip="Enter a valid password"
+                tooltipPosition="top"
               />
               <label for="password1" class="block text-900 font-medium mb-2"
                 >Phone</label
@@ -81,6 +87,8 @@
                 mask="(999) 999-9999"
                 formControlName="phone"
                 placeholder="(999) 999-9999"
+                pTooltip="Enter a valid phone number"
+                tooltipPosition="top"
               >
               </p-inputMask>
 
@@ -94,6 +102,8 @@
                 locale="en-US"
                 class="mb-3"
                 formControlName="intendedInvestment"
+                pTooltip="Enter the amount of money willing to invest"
+                tooltipPosition="top"
               ></p-inputNumber>
 
               <div class="flex align-items-center justify-content-between mb-6">
